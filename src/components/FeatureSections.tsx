@@ -149,10 +149,7 @@ export function FeatureSections() {
                     <Button size="lg" className="rounded-full px-8 bg-cyan-600 hover:bg-cyan-500 text-white" asChild>
                         <a
                             href="https://app.jobbridge.app"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                reportConversion("https://app.jobbridge.app");
-                            }}
+                            onClick={() => reportConversion()}
                         >
                             Jetzt kostenlos registrieren
                         </a>

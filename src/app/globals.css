@@ -34,6 +34,16 @@
 
     --animate-accordion-down: accordion-down 0.2s ease-out;
     --animate-accordion-up: accordion-up 0.2s ease-out;
+    --animate-shimmer: shimmer 2s infinite linear;
+
+    @keyframes shimmer {
+        from {
+            transform: translateX(-200%);
+        }
+        to {
+            transform: translateX(400%);
+        }
+    }
 
     @keyframes accordion-down {
         from {

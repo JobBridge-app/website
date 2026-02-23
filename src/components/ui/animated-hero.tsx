@@ -72,10 +72,7 @@ function Hero() {
                         >
                             <a
                                 href="https://app.jobbridge.app"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    reportConversion("https://app.jobbridge.app");
-                                }}
+                                onClick={() => reportConversion()}
                             >
                                 Zur Plattform <MoveRight className="w-4 h-4" />
                             </a>
