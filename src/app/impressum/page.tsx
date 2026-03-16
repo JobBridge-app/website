@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ShieldAlert } from "lucide-react";
+
+export const metadata: Metadata = {
+    title: "Impressum",
+    description:
+        "Impressum und Anbieterkennzeichnung der JobBridge-Plattform.",
+    robots: {
+        index: false,
+        follow: false,
+    },
+    alternates: {
+        canonical: "/impressum",
+    },
+};
 
 export default function ImpressumPage() {
     return (

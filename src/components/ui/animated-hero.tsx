@@ -10,7 +10,7 @@ import { homePageConfig } from "@/config/site";
 function Hero() {
     const [titleNumber, setTitleNumber] = useState(0);
     const titles = useMemo(
-        () => ["sicher", "fair", "transparent", "jugendfreundlich", "vertrauenswürdig"],
+        () => ["sicher", "fair", "transparent", "jugendfreundlich", "lokal"],
         []
     );
 
@@ -61,7 +61,7 @@ function Hero() {
                         </h1>
 
                         <p className="text-base md:text-lg leading-relaxed tracking-tight text-neutral-200 max-w-2xl text-center mx-auto">
-                            Die Plattform für Taschengeldjobs: Jugendliche finden faire Aufgaben, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung. Mit Sicherheit und Vertrauen im Fokus.
+                            Die Plattform für Taschengeldjobs in deiner Nähe: Jugendliche finden sichere Aufgaben in Rheinbach und Umgebung, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung.
                         </p>
                     </div>
                     <div className="flex flex-col md:flex-row gap-4 mt-4">

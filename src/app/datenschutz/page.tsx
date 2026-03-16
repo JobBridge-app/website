@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Lock } from "lucide-react";
+
+export const metadata: Metadata = {
+    title: "Datenschutz",
+    description:
+        "Datenschutzhinweise der JobBridge-Plattform. Informationen zum Umgang mit personenbezogenen Daten.",
+    robots: {
+        index: false,
+        follow: false,
+    },
+    alternates: {
+        canonical: "/datenschutz",
+    },
+};
 
 export default function DatenschutzPage() {
     return (

@@ -1,7 +1,38 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/ui/animated-hero";
 import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo";
 import { FeatureSections } from "@/components/FeatureSections";
 import { Footer } from "@/components/Footer";
+
+export const metadata: Metadata = {
+    title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+    description:
+        "JobBridge ist die digitale Taschengeldbörse für Rheinbach: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung. Mit Verifizierung und Jugendschutz.",
+    alternates: {
+        canonical: "/",
+    },
+    openGraph: {
+        title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+        description:
+            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern, geprüfte Hilfe für Auftraggeber. Jetzt in Rheinbach.",
+        url: "/",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1024,
+                height: 1024,
+                alt: "JobBridge – Die digitale Taschengeldbörse",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+        description:
+            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern, geprüfte Hilfe für Auftraggeber.",
+        images: ["/og-image.png"],
+    },
+};
 
 export default function HomePage() {
     return (
@@ -16,7 +47,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section className="relative z-20">
+            <section id="how-it-works" className="relative z-20">
                 <HeroScrollDemo />
             </section>
 

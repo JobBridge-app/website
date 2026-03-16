@@ -11,6 +11,7 @@ export function FeatureSections() {
 
             {/* --- Sektion: Für wen ist JobBridge? --- */}
             <motion.section
+                id="fuer-wen"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -48,7 +49,7 @@ export function FeatureSections() {
             </motion.section>
 
             {/* --- Sektion: Sicherheit & Vertrauen --- */}
-            <section className="py-24 border-t border-white/5 relative overflow-hidden">
+            <section id="sicherheit" className="py-24 border-t border-white/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-cyan-900/5 pointer-events-none" />
                 <div className="container mx-auto grid items-start gap-16 px-5 md:grid-cols-2 md:px-6 relative z-10">
                     <motion.div
@@ -113,6 +114,7 @@ export function FeatureSections() {
 
             {/* --- Sektion: So startest du (Stepper) --- */}
             <motion.section
+                id="so-gehts"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

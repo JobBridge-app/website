@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { reportConversion } from "@/lib/gtag";
 import { Leaf } from "lucide-react";
 
@@ -10,9 +11,9 @@ export function Footer() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-500">
                     <div className="text-sm">
                         <span className="font-semibold text-white">JobBridge</span>{" "}
-                        - die digitale Taschengeldbörse
+                        – die digitale Taschengeldbörse für Rheinbach
                     </div>
-                    <div className="flex gap-8 text-sm">
+                    <nav aria-label="Footer-Navigation" className="flex gap-8 text-sm">
                         <a
                             href="https://app.jobbridge.app"
                             className="hover:text-white transition-colors cursor-pointer"
@@ -20,13 +21,13 @@ export function Footer() {
                         >
                             Zur Plattform
                         </a>
-                        <a href="/impressum" className="hover:text-white transition-colors">
+                        <Link href="/impressum" className="hover:text-white transition-colors">
                             Impressum
-                        </a>
-                        <a href="/datenschutz" className="hover:text-white transition-colors">
+                        </Link>
+                        <Link href="/datenschutz" className="hover:text-white transition-colors">
                             Datenschutz
-                        </a>
-                    </div>
+                        </Link>
+                    </nav>
                 </div>
                 
                 <div className="flex justify-center md:justify-start">
@@ -37,7 +38,7 @@ export function Footer() {
                         className="group flex items-center gap-2 text-xs text-neutral-500 hover:text-emerald-400 transition-colors duration-300"
                     >
                         <Leaf className="w-3 h-3" />
-                        <span>Wir spenden 5% unserer Einnahmen für die CO₂-Entnahme.</span>
+                        <span>Wir spenden 5 % unserer Einnahmen für die CO₂-Entnahme.</span>
                         <span className="underline decoration-neutral-700 underline-offset-2 group-hover:decoration-emerald-400/50 transition-colors">Mehr erfahren</span>
                     </a>
                 </div>
