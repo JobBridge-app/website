@@ -40,6 +40,7 @@
         from {
             transform: translateX(-200%);
         }
+
         to {
             transform: translateX(400%);
         }
@@ -47,21 +48,21 @@
 
     @keyframes accordion-down {
         from {
-            height: 0
+            height: 0;
         }
 
         to {
-            height: var(--radix-accordion-content-height)
+            height: var(--radix-accordion-content-height);
         }
     }
 
     @keyframes accordion-up {
         from {
-            height: var(--radix-accordion-content-height)
+            height: var(--radix-accordion-content-height);
         }
 
         to {
-            height: 0
+            height: 0;
         }
     }
 }
@@ -137,5 +138,8 @@
 
     body {
         @apply bg-background text-foreground;
+        font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

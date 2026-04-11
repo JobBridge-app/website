@@ -1,8 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import Script from "next/script";
+import "./globals.css";
 
 const SITE_URL = "https://www.jobbridge.app";
+
+const instrumentSerif = Instrument_Serif({
+    subsets: ["latin"],
+    weight: "400",
+    display: "swap",
+    variable: "--font-serif",
+});
+
+const geistSans = Geist({
+    subsets: ["latin"],
+    weight: ["400", "500"],
+    display: "swap",
+    variable: "--font-sans",
+});
+
+const geistMono = Geist_Mono({
+    subsets: ["latin"],
+    weight: ["400", "500"],
+    display: "swap",
+    variable: "--font-mono",
+});
 
 export const viewport: Viewport = {
     width: "device-width",
@@ -76,16 +98,12 @@ export const metadata: Metadata = {
     },
 };
 
-// JSON-LD: WebSite (for Google Sitelinks Search Box eligibility & Site Name)
 const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: "JobBridge",
-    alternateName: [
-        "JobBridge Taschengeldbörse",
-        "JobBridge Rheinbach",
-    ],
+    alternateName: ["JobBridge Taschengeldbörse", "JobBridge Rheinbach"],
     url: SITE_URL,
     description:
         "Die digitale Taschengeldbörse – sichere Vermittlung von Taschengeldjobs für Jugendliche, Eltern und Auftraggeber in Rheinbach.",
@@ -95,7 +113,6 @@ const websiteJsonLd = {
     },
 };
 
-// JSON-LD: Organization (for Knowledge Panel & Brand Signals)
 const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -133,7 +150,6 @@ const organizationJsonLd = {
     ],
 };
 
-// JSON-LD: WebPage (for the currently rendered page)
 const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -157,7 +173,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="de" className="dark">
+        <html
+            lang="de"
+            className={`${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} dark`}
+        >
             <head>
                 <script
                     type="application/ld+json"
