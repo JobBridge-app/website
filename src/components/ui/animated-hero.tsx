@@ -276,33 +276,33 @@ const DESKTOP_CARD_SLOTS: CardSlot[] = [
 
 const MOBILE_CARD_SLOTS: CardSlot[] = [
     {
-        className: "left-1/2 top-[18%] w-[92%] max-w-[430px] -translate-x-1/2",
+        className: "left-1/2 top-[5%] w-[92%] max-w-[340px] -translate-x-1/2",
         scale: 1,
-        rotate: -1,
+        rotate: -1.2,
         opacity: 1,
         blur: 0,
         zIndex: 40,
     },
     {
-        className: "left-[58%] top-[5%] w-[86%] max-w-[390px] -translate-x-1/2",
-        scale: 0.92,
-        rotate: 4.8,
-        opacity: 0.34,
+        className: "left-[59%] top-[1%] w-[84%] max-w-[308px] -translate-x-1/2",
+        scale: 0.9,
+        rotate: 5.2,
+        opacity: 0.24,
         blur: 1,
         zIndex: 24,
     },
     {
-        className: "left-[42%] top-[44%] w-[84%] max-w-[380px] -translate-x-1/2",
-        scale: 0.84,
-        rotate: -5.4,
-        opacity: 0.2,
-        blur: 1.6,
+        className: "left-[43%] top-[28%] w-[82%] max-w-[296px] -translate-x-1/2",
+        scale: 0.82,
+        rotate: -5.8,
+        opacity: 0.14,
+        blur: 1.8,
         zIndex: 14,
     },
 ];
 
 const HIDDEN_CARD_SLOT: CardSlot = {
-    className: "left-[84%] top-[38%] w-[70%] max-w-[360px] -translate-x-1/2",
+    className: "left-[84%] top-[34%] w-[70%] max-w-[320px] -translate-x-1/2",
     scale: 0.74,
     rotate: 8,
     opacity: 0,
@@ -563,43 +563,43 @@ function JobCard({
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_0%,rgba(255,255,255,0.055),transparent_42%)]" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[linear-gradient(180deg,rgba(255,255,255,0.018),transparent)]" />
 
-            <div className="relative px-5 py-5 md:px-6 md:py-6">
-                <h3 className="text-pretty text-[1.65rem] font-semibold leading-[1.12] tracking-[-0.035em] text-white md:text-[2.05rem]">
+            <div className="relative px-4 py-4 sm:px-5 sm:py-5 md:px-6 md:py-6">
+                <h3 className="text-pretty text-[1.32rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-[1.5rem] md:text-[2.05rem]">
                     {card.title}
                 </h3>
 
-                <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-400">
-                    <span className={`inline-flex items-center gap-2 rounded-[15px] border px-3.5 py-2 text-[0.95rem] font-medium ${chipStyle}`}>
-                        <CardIcon className="h-4 w-4" />
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-slate-400 sm:mt-5 sm:gap-x-4">
+                    <span className={`inline-flex items-center gap-2 rounded-[15px] border px-3 py-1.5 text-[0.82rem] font-medium sm:px-3.5 sm:py-2 sm:text-[0.95rem] ${chipStyle}`}>
+                        <CardIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                         {card.category}
                     </span>
                     <span className="hidden h-1 w-1 rounded-full bg-slate-500/90 sm:block" />
-                    <span className="text-[1rem] text-slate-400 md:text-[1.05rem]">
+                    <span className="text-[0.92rem] text-slate-400 sm:text-[0.98rem] md:text-[1.05rem]">
                         {card.clientType}
                     </span>
                 </div>
 
-                <p className="mt-7 max-w-[32ch] text-[1.04rem] leading-[1.5] text-slate-300 md:text-[1.1rem]">
+                <p className="mt-5 max-w-[28ch] text-[0.96rem] leading-[1.48] text-slate-300 sm:mt-6 sm:max-w-[32ch] sm:text-[1.02rem] md:mt-7 md:text-[1.1rem]">
                     {card.description}
                 </p>
 
-                <div className="mt-8 h-px bg-white/8" />
+                <div className="mt-6 h-px bg-white/8 sm:mt-7 md:mt-8" />
 
-                <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm md:text-[0.96rem]">
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2.5 text-[0.82rem] sm:mt-5 sm:gap-x-5 sm:text-[0.9rem] md:gap-x-6 md:gap-y-3 md:text-[0.96rem]">
                     <span className="inline-flex items-center gap-2.5 text-white">
-                        <Coins className="h-4.5 w-4.5 text-emerald-300" />
+                        <Coins className="h-4 w-4 text-emerald-300 md:h-4.5 md:w-4.5" />
                         <span className="font-semibold tracking-[-0.02em]">{card.price}</span>
                     </span>
                     <span className="inline-flex items-center gap-2.5 text-slate-200">
-                        <MapPin className="h-4.5 w-4.5 text-indigo-300" />
+                        <MapPin className="h-4 w-4 text-indigo-300 md:h-4.5 md:w-4.5" />
                         <span>{card.distance}</span>
                     </span>
                     <span className="inline-flex items-center gap-2.5 text-slate-400">
-                        <CalendarDays className="h-4.5 w-4.5 text-slate-500" />
+                        <CalendarDays className="h-4 w-4 text-slate-500 md:h-4.5 md:w-4.5" />
                         <span>{card.date}</span>
                     </span>
                     <span className="inline-flex items-center gap-2.5 text-slate-300">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-blue-300/14 bg-blue-400/[0.12] text-[0.82rem] font-semibold text-blue-100">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full border border-blue-300/14 bg-blue-400/[0.12] text-[0.72rem] font-semibold text-blue-100 sm:h-8 sm:w-8 sm:text-[0.82rem]">
                             {card.authorInitial}
                         </span>
                         <span>{card.author}</span>
@@ -634,7 +634,7 @@ function HeroVisual({
     return (
         <motion.div
             style={{ y: visualY }}
-            className="relative col-span-12 mt-2 flex min-h-[360px] items-center justify-center lg:-ml-8 lg:col-span-5 lg:mt-0 lg:min-h-0 xl:-ml-12"
+            className="relative col-span-12 mt-8 flex min-h-[320px] items-start justify-center sm:mt-10 sm:min-h-[380px] lg:-ml-8 lg:col-span-5 lg:mt-0 lg:min-h-0 lg:items-center xl:-ml-12"
             initial={reducedMotion ? false : { opacity: 0, x: 36, scale: 0.97, filter: "blur(24px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.1, delay: 0.5, ease: EASE }}
@@ -649,7 +649,7 @@ function HeroVisual({
                 }}
             />
 
-            <div className="relative h-[440px] w-full max-w-[620px] sm:h-[520px] lg:h-[560px]">
+            <div className="relative h-[320px] w-full max-w-[380px] sm:h-[390px] sm:max-w-[440px] lg:h-[560px] lg:max-w-[620px]">
                 <div className="pointer-events-none absolute inset-[8%_10%_14%_14%] rounded-[120px] bg-[radial-gradient(circle_at_50%_40%,rgba(96,165,250,0.14),transparent_58%)] blur-3xl" />
 
                 {HERO_CARDS.map((card, index) => {
@@ -742,7 +742,7 @@ function Hero() {
         <section
             ref={heroRef}
             aria-label="JobBridge Hero"
-            className="relative h-[calc(100vh-2rem)] min-h-[760px] w-full max-w-[1760px] overflow-hidden rounded-[32px] border border-white/10 bg-[#030712] text-white shadow-[0_40px_140px_rgba(2,6,23,0.55)]"
+            className="relative min-h-[calc(100svh-2rem)] w-full max-w-[1760px] overflow-hidden rounded-[32px] border border-white/10 bg-[#030712] text-white shadow-[0_40px_140px_rgba(2,6,23,0.55)] lg:h-[calc(100vh-2rem)] lg:min-h-[760px]"
             style={{
                 backgroundImage: showCanvas ? undefined : MOBILE_NOISE_URL,
                 backgroundColor: "#030712",
@@ -754,7 +754,7 @@ function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:120px_120px] opacity-[0.08]" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#02040b] to-transparent" />
 
-            <div className="relative z-10 grid h-full grid-cols-12 gap-6 px-6 pb-8 pt-6 md:px-8 md:pb-10 md:pt-8 lg:gap-0 xl:px-10">
+            <div className="relative z-10 grid grid-cols-12 gap-6 px-6 pb-10 pt-6 sm:pb-12 md:px-8 md:pb-10 md:pt-8 lg:h-full lg:gap-0 xl:px-10">
                 <motion.div
                     className="col-span-12 flex h-16 items-center justify-between"
                     initial={reducedMotion ? false : { opacity: 0, y: -12 }}
@@ -789,7 +789,7 @@ function Hero() {
 
                 <motion.div
                     style={{ y: contentY, opacity: contentOpacity }}
-                    className="col-span-12 flex flex-col justify-center lg:col-span-7 lg:pb-6 lg:pr-10 xl:pr-14"
+                    className="col-span-12 flex flex-col justify-start pt-4 lg:col-span-7 lg:justify-center lg:pb-6 lg:pr-10 lg:pt-0 xl:pr-14"
                 >
                     <motion.div
                         className="max-w-[760px]"
