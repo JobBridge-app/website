@@ -50,6 +50,73 @@ function scrollToSection(section: HTMLElement, reducedMotion: boolean) {
     activeScrollFrame = window.requestAnimationFrame(animate);
 }
 
+function getActiveSectionId(sectionIds: string[]) {
+    if (!sectionIds.length) {
+        return "";
+    }
+
+    const lastSectionId = sectionIds[sectionIds.length - 1];
+    const documentElement = document.documentElement;
+    const scrollBottom = window.scrollY + window.innerHeight;
+    const pageBottom = documentElement.scrollHeight;
+
+    if (scrollBottom >= pageBottom - 4) {
+        return lastSectionId;
+    }
+
+    const readingLine = Math.min(Math.max(window.innerHeight * 0.38, 220), window.innerHeight - 120);
+    const sections = sectionIds
+        .map((id) => {
+            const section = document.getElementById(id);
+
+            if (!section) {
+                return null;
+            }
+
+            return {
+                id,
+                rect: section.getBoundingClientRect(),
+            };
+        })
+        .filter((section): section is { id: string; rect: DOMRect } => Boolean(section));
+
+    let sectionAtReadingLine: { id: string; rect: DOMRect } | null = null;
+
+    for (let index = sections.length - 1; index >= 0; index -= 1) {
+        const section = sections[index];
+
+        if (section.rect.top <= readingLine && section.rect.bottom >= readingLine) {
+            sectionAtReadingLine = section;
+            break;
+        }
+    }
+
+    if (sectionAtReadingLine) {
+        return sectionAtReadingLine.id;
+    }
+
+    const visibleSections = sections.filter(({ rect }) => rect.bottom > 96 && rect.top < window.innerHeight);
+
+    if (visibleSections.length) {
+        return visibleSections.reduce((nearestSection, section) => {
+            const nearestDistance = Math.abs(nearestSection.rect.top - readingLine);
+            const sectionDistance = Math.abs(section.rect.top - readingLine);
+
+            return sectionDistance < nearestDistance ? section : nearestSection;
+        }).id;
+    }
+
+    let activeId = sectionIds[0];
+
+    for (const { id, rect } of sections) {
+        if (rect.top <= readingLine) {
+            activeId = id;
+        }
+    }
+
+    return activeId;
+}
+
 export function LegalBackButton() {
     const router = useRouter();
 
@@ -175,6 +242,7 @@ export function LegalPageNavigation({
     const [activeId, setActiveId] = useState(navItems[0]?.id ?? "");
     const frameRef = useRef<number | null>(null);
     const delayedHighlightTimersRef = useRef<number[]>([]);
+    const activeLinkRef = useRef<HTMLAnchorElement | null>(null);
     const sectionIds = useMemo(() => navItems.map((item) => item.id), [navItems]);
 
     const highlightSection = useCallback((id: string) => {
@@ -200,23 +268,16 @@ export function LegalPageNavigation({
     );
 
     const updateActiveSection = useCallback(() => {
-        const activationLine = Math.min(window.innerHeight * 0.34, 280);
-        let nextActiveId = sectionIds[0] ?? "";
-
-        for (const id of sectionIds) {
-            const section = document.getElementById(id);
-
-            if (!section) {
-                continue;
-            }
-
-            if (section.getBoundingClientRect().top <= activationLine) {
-                nextActiveId = id;
-            }
-        }
-
+        const nextActiveId = getActiveSectionId(sectionIds);
         setActiveId((currentActiveId) => (currentActiveId === nextActiveId ? currentActiveId : nextActiveId));
     }, [sectionIds]);
+
+    useEffect(() => {
+        activeLinkRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+        });
+    }, [activeId]);
 
     useEffect(() => {
         const scheduleUpdate = () => {
@@ -232,11 +293,15 @@ export function LegalPageNavigation({
 
         scheduleUpdate();
         window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        document.addEventListener("scroll", scheduleUpdate, { capture: true, passive: true });
         window.addEventListener("resize", scheduleUpdate);
+        window.visualViewport?.addEventListener("resize", scheduleUpdate);
 
         return () => {
             window.removeEventListener("scroll", scheduleUpdate);
+            document.removeEventListener("scroll", scheduleUpdate, { capture: true });
             window.removeEventListener("resize", scheduleUpdate);
+            window.visualViewport?.removeEventListener("resize", scheduleUpdate);
 
             if (frameRef.current) {
                 window.cancelAnimationFrame(frameRef.current);
@@ -306,6 +371,7 @@ export function LegalPageNavigation({
                     return (
                         <a
                             key={item.id}
+                            ref={isActive ? activeLinkRef : null}
                             href={`#${item.id}`}
                             aria-current={isActive ? "location" : undefined}
                             onClick={handleSectionClick(item.id)}
