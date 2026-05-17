@@ -12,7 +12,7 @@ export function Footer() {
                         <span className="font-semibold text-white">JobBridge</span>{" "}
                         – die digitale Taschengeldbörse für Rheinbach
                     </div>
-                    <nav aria-label="Footer-Navigation" className="flex gap-8 text-sm">
+                    <nav aria-label="Footer-Navigation" className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm">
                         <a
                             href="https://app.jobbridge.app"
                             className="hover:text-white transition-colors cursor-pointer"

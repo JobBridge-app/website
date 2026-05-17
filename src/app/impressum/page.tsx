@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ShieldAlert } from "lucide-react";
+import { Mail } from "lucide-react";
+import {
+    LegalDefinitionList,
+    LegalNotice,
+    LegalPage,
+    LegalSection,
+    PLATFORM_LEGAL_URL,
+    type LegalNavItem,
+} from "@/components/legal/LegalPage";
+
+const updatedAt = "17. Mai 2026";
+
+const navItems: LegalNavItem[] = [
+    { id: "geltungsbereich", label: "Geltungsbereich" },
+    { id: "anbieter", label: "Anbieter" },
+    { id: "kontakt", label: "Kontakt" },
+    { id: "redaktion", label: "Redaktion" },
+    { id: "plattform", label: "Plattform" },
+    { id: "streitbeilegung", label: "Streitbeilegung" },
+    { id: "rechte", label: "Inhalte & Rechte" },
+];
 
 export const metadata: Metadata = {
     title: "Impressum",
     description:
-        "Impressum und Anbieterkennzeichnung der JobBridge-Plattform.",
+        "Impressum und Anbieterkennzeichnung für die JobBridge-Landingpage unter jobbridge.app.",
     robots: {
-        index: false,
-        follow: false,
+        index: true,
+        follow: true,
     },
     alternates: {
         canonical: "/impressum",
@@ -17,86 +37,158 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
     return (
-        <main className="min-h-screen bg-neutral-950 text-neutral-50 flex items-center justify-center px-4 py-24 md:py-32 relative overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-96 bg-cyan-900/20 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-full h-96 bg-blue-900/10 blur-[120px] pointer-events-none" />
+        <LegalPage
+            title="Impressum"
+            updatedAt={updatedAt}
+            navItems={navItems}
+        >
+            <LegalSection id="geltungsbereich" title="Geltungsbereich">
+                <LegalNotice>
+                    Dieses Impressum gilt nur für <strong className="text-white">jobbridge.app</strong>. Für die
+                    Plattform unter <strong className="text-white">app.jobbridge.app</strong> gelten die Unterlagen im{" "}
+                    <a
+                        href={PLATFORM_LEGAL_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-100 underline decoration-cyan-200/40 underline-offset-4 transition hover:text-white"
+                    >
+                        Trustcenter unter app.jobbridge.app/legal.
+                    </a>
+                </LegalNotice>
+            </LegalSection>
 
-            <div className="w-full max-w-3xl rounded-3xl border border-white/10 bg-white/5 px-6 py-8 md:px-10 md:py-12 backdrop-blur-xl shadow-2xl relative z-10">
-                <div className="mb-8">
-                    <Link href="/" className="inline-flex items-center text-sm text-neutral-400 hover:text-white transition-colors mb-6">
-                        <ArrowLeft className="w-4 h-4 mr-2" /> Zurück zur Startseite
+            <LegalSection id="anbieter" title="Anbieter nach § 5 DDG">
+                <LegalDefinitionList
+                    items={[
+                        {
+                            term: "Diensteanbieter",
+                            description: (
+                                <>
+                                    Rezan Aaron Yalçin
+                                    <br />
+                                    JobBridge
+                                </>
+                            ),
+                        },
+                        {
+                            term: "Anschrift",
+                            description: (
+                                <>
+                                    Am Neuen Wasserwerk 3
+                                    <br />
+                                    53359 Rheinbach
+                                    <br />
+                                    Deutschland
+                                </>
+                            ),
+                        },
+                    ]}
+                />
+            </LegalSection>
+
+            <LegalSection id="kontakt" title="Kontakt">
+                <p>
+                    Für Anfragen zur Landingpage, Hinweise zu Inhalten oder allgemeine Kontaktaufnahme erreichen Sie uns
+                    per E-Mail.
+                </p>
+                <p>
+                    <a
+                        href="mailto:rezan@jobbridge.app"
+                        className="inline-flex items-center gap-2 text-cyan-200 transition hover:text-cyan-100"
+                    >
+                        <Mail className="h-4 w-4" />
+                        rezan@jobbridge.app
+                    </a>
+                </p>
+                <LegalDefinitionList
+                    items={[
+                        {
+                            term: "USt-ID / W-ID",
+                            description: "—",
+                        },
+                        {
+                            term: "Aufsichtsbehörde",
+                            description: "Es besteht keine besondere behördliche Zulassungspflicht für diese Landingpage.",
+                        },
+                    ]}
+                />
+            </LegalSection>
+
+            <LegalSection id="redaktion" title="Redaktionell verantwortlich">
+                <p>
+                    Verantwortlich für journalistisch-redaktionelle Inhalte im Sinne des § 18 Abs. 2 MStV, soweit solche
+                    Inhalte auf dieser Landingpage vorliegen:
+                </p>
+                <LegalDefinitionList
+                    items={[
+                        {
+                            term: "Name",
+                            description: "Rezan Aaron Yalçin",
+                        },
+                        {
+                            term: "Anschrift",
+                            description: (
+                                <>
+                                    Am Neuen Wasserwerk 3
+                                    <br />
+                                    53359 Rheinbach
+                                    <br />
+                                    Deutschland
+                                </>
+                            ),
+                        },
+                    ]}
+                />
+            </LegalSection>
+
+            <LegalSection id="plattform" title="Abgrenzung zur Plattform">
+                <p>
+                    Diese Landingpage informiert über JobBridge und verlinkt auf die Plattform. Sie stellt selbst keine
+                    Nutzerkonten, keine Jobvermittlung, keine Zahlungsfunktion, keine Verifizierung und keine
+                    Vertragsabwicklung bereit.
+                </p>
+                <p>
+                    Sobald Sie die Plattform unter{" "}
+                    <a
+                        href="https://app.jobbridge.app"
+                        className="text-cyan-200 transition hover:text-cyan-100"
+                    >
+                        app.jobbridge.app
+                    </a>{" "}
+                    oder das Trustcenter unter app.jobbridge.app/legal öffnen, gelten die dort bereitgestellten
+                    rechtlichen Hinweise.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="streitbeilegung" title="Streitbeilegung">
+                <p>
+                    Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer
+                    Verbraucherschlichtungsstelle teilzunehmen.
+                </p>
+                <p className="text-sm text-slate-400">
+                    Die frühere EU-Plattform zur Online-Streitbeilegung ist seit dem 20. Juli 2025 eingestellt.
+                </p>
+            </LegalSection>
+
+            <LegalSection id="rechte" title="Inhalte, Links und Rechte">
+                <p>
+                    Die Inhalte dieser Landingpage wurden sorgfältig erstellt. Für Inhalte externer Websites, auf die wir
+                    verlinken, ist der jeweilige Anbieter verantwortlich. Bei konkreten Hinweisen auf rechtswidrige
+                    Inhalte prüfen wir den betroffenen Link.
+                </p>
+                <p>
+                    Texte, Gestaltung, Markenbestandteile und sonstige Inhalte dieser Landingpage sind urheberrechtlich
+                    geschützt, soweit sie nicht anders gekennzeichnet sind. Eine Nutzung außerhalb der gesetzlichen
+                    Grenzen bedarf der vorherigen Zustimmung des jeweiligen Rechteinhabers.
+                </p>
+                <p className="text-sm text-slate-400">
+                    Weitere Datenschutzhinweise zur Landingpage finden Sie unter{" "}
+                    <Link href="/datenschutz" className="text-cyan-200 transition hover:text-cyan-100">
+                        Datenschutz
                     </Link>
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">
-                        Impressum
-                    </h1>
-                </div>
-
-                {/* Disclaimer Box */}
-                <div className="mb-10 p-5 rounded-2xl bg-cyan-900/20 border border-cyan-500/30 flex gap-4 items-start">
-                    <ShieldAlert className="w-6 h-6 text-cyan-400 shrink-0 mt-0.5" />
-                    <div className="space-y-1">
-                        <h3 className="font-semibold text-cyan-200">Wichtiger Hinweis</h3>
-                        <p className="text-sm text-cyan-100/80 leading-relaxed">
-                            Die folgenden Angaben sind ein Entwurf und wurden noch nicht geprüft.
-                            Sie stellen keine Rechtsberatung dar und können unvollständig sein. Dieses Impressum wird vor dem offiziellen
-                            Start von JobBridge aktualisiert.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="space-y-10 text-neutral-300 font-light leading-relaxed">
-
-                    {/* 1. Anbieter */}
-                    <section>
-                        <h2 className="text-xl font-semibold text-white mb-4">1. Anbieter der Plattform</h2>
-                        <p className="mb-2"><strong>JobBridge</strong> – ein Projekt der Ray Group.</p>
-                        <p className="mb-4">Verantwortlich für Inhalt und Konzeption der Plattform JobBridge:</p>
-                        <p className="text-white font-medium">Rezan Yalçin</p>
-                        <div className="mt-4">
-                            <span className="block text-sm text-neutral-400 mb-1">Kontakt:</span>
-                            <a href="mailto:rezan@jobbridge.app" className="text-cyan-400 hover:text-cyan-300 transition-colors">rezan@jobbridge.app</a>
-                        </div>
-                    </section>
-
-                    <hr className="border-white/10" />
-
-                    {/* 2. Verantwortlich nach MStV */}
-                    <section>
-                        <h2 className="text-xl font-semibold text-white mb-4">2. Verantwortlich im Sinne des § 18 Abs. 2 MStV</h2>
-                        <p className="text-white font-medium mb-1">Rezan Yalçin</p>
-                        <a href="mailto:rezan@jobbridge.app" className="text-cyan-400 hover:text-cyan-300 transition-colors block mb-2">rezan@jobbridge.app</a>
-                        <p className="text-sm text-neutral-500 italic mt-2">Postanschrift wird vor dem offiziellen Start ergänzt.</p>
-                    </section>
-
-                    <hr className="border-white/10" />
-
-                    {/* 3. Haftung */}
-                    <section>
-                        <h2 className="text-xl font-semibold text-white mb-4">3. Haftungshinweise</h2>
-                        <p className="mb-4">
-                            Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
-                        </p>
-                        <p>
-                            Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-                        </p>
-                    </section>
-
-                    <hr className="border-white/10" />
-
-                    {/* 4. Urheberrecht */}
-                    <section>
-                        <h2 className="text-xl font-semibold text-white mb-4">4. Marken- und Urheberrecht</h2>
-                        <p>
-                            Die Projektbezeichnungen „JobBridge“ und „Ray Group“ sowie alle erstellten Inhalte, Texte und Grafiken auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-                        </p>
-                    </section>
-
-                    <div className="pt-6 text-xs text-neutral-500 text-center">
-                        <p>Stand: Dezember 2025 – Version: Entwurf 0.1</p>
-                    </div>
-                </div>
-            </div>
-        </main>
+                    .
+                </p>
+            </LegalSection>
+        </LegalPage>
     );
 }

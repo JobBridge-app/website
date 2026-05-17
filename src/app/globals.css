@@ -142,4 +142,68 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+}
+
+@layer utilities {
+    .legal-heading-highlight {
+        animation: legal-heading-focus 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    [data-legal-section]:target > h2 {
+        animation: legal-heading-focus 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html[data-legal-highlight="geltungsbereich"] #geltungsbereich > h2,
+    html[data-legal-highlight="allgemeines"] #allgemeines > h2,
+    html[data-legal-highlight="verantwortlicher"] #verantwortlicher > h2,
+    html[data-legal-highlight="aufruf"] #aufruf > h2,
+    html[data-legal-highlight="links"] #links > h2,
+    html[data-legal-highlight="kontakt"] #kontakt > h2,
+    html[data-legal-highlight="empfaenger"] #empfaenger > h2,
+    html[data-legal-highlight="rechte"] #rechte > h2,
+    html[data-legal-highlight="aktualisierung"] #aktualisierung > h2,
+    html[data-legal-highlight="anbieter"] #anbieter > h2,
+    html[data-legal-highlight="redaktion"] #redaktion > h2,
+    html[data-legal-highlight="plattform"] #plattform > h2,
+    html[data-legal-highlight="streitbeilegung"] #streitbeilegung > h2 {
+        animation: legal-heading-focus 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes legal-heading-focus {
+        0% {
+            color: rgb(236, 254, 255);
+            text-shadow:
+                0 0 24px rgba(125, 211, 252, 0.34),
+                0 0 58px rgba(59, 130, 246, 0.18);
+            transform: translateX(2px);
+        }
+
+        52% {
+            color: rgb(255, 255, 255);
+            text-shadow:
+                0 0 18px rgba(125, 211, 252, 0.24),
+                0 0 42px rgba(59, 130, 246, 0.12);
+            transform: translateX(1px);
+        }
+
+        100% {
+            color: rgb(255, 255, 255);
+            text-shadow: none;
+            transform: translateX(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .legal-heading-highlight {
+            animation: none;
+            color: rgb(236, 254, 255);
+            text-shadow: 0 0 18px rgba(125, 211, 252, 0.22);
+        }
+    }
 }

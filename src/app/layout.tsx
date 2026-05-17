@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const SITE_URL = "https://www.jobbridge.app";
+const SITE_URL = "https://jobbridge.app";
 
 const instrumentSerif = Instrument_Serif({
     subsets: ["latin"],
