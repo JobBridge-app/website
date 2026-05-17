@@ -68,7 +68,7 @@ export default function DatenschutzPage() {
                         <p>
                             Derzeit werden personenbezogene Daten lediglich im technisch notwendigen Umfang verarbeitet,
                             um die Auslieferung der Webseite zu gewährleisten (z.B. Server-Logfiles, IP-Adressen zur Gefahrenabwehr).
-                            Es werden keine Tracking-Cookies für Werbezwecke eingesetzt.
+                            Es werden keine Analyse- oder Marketing-Skripte eingesetzt.
                         </p>
                     </section>
 

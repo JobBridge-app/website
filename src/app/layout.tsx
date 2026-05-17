@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = "https://www.jobbridge.app";
@@ -93,9 +92,6 @@ export const metadata: Metadata = {
     icons: {
         icon: "/favicon.ico",
     },
-    other: {
-        "google-site-verification": "",
-    },
 };
 
 const websiteJsonLd = {
@@ -167,6 +163,24 @@ const webPageJsonLd = {
     inLanguage: "de-DE",
 };
 
+const serializeJsonLd = (data: unknown) =>
+    JSON.stringify(data).replace(/[<>&\u2028\u2029]/g, (character) => {
+        switch (character) {
+            case "<":
+                return "\\u003c";
+            case ">":
+                return "\\u003e";
+            case "&":
+                return "\\u0026";
+            case "\u2028":
+                return "\\u2028";
+            case "\u2029":
+                return "\\u2029";
+            default:
+                return character;
+        }
+    });
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -181,35 +195,23 @@ export default function RootLayout({
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(websiteJsonLd),
+                        __html: serializeJsonLd(websiteJsonLd),
                     }}
                 />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(organizationJsonLd),
+                        __html: serializeJsonLd(organizationJsonLd),
                     }}
                 />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(webPageJsonLd),
+                        __html: serializeJsonLd(webPageJsonLd),
                     }}
                 />
             </head>
             <body className="min-h-screen bg-background font-sans antialiased">
-                <Script
-                    src="https://www.googletagmanager.com/gtag/js?id=AW-17814899877"
-                    strategy="afterInteractive"
-                />
-                <Script id="google-analytics" strategy="afterInteractive">
-                    {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17814899877');
-          `}
-                </Script>
                 {children}
             </body>
         </html>

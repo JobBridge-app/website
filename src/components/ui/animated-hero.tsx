@@ -12,7 +12,6 @@ import {
     useTransform,
 } from "framer-motion";
 import {
-    BookOpenText,
     CalendarDays,
     Coins,
     Leaf,
@@ -22,7 +21,6 @@ import {
     Smartphone,
     Wrench,
 } from "lucide-react";
-import { reportConversion } from "@/lib/gtag";
 
 const HEADLINE_PRIMARY_LINE = "Dein erster Job.";
 const HEADLINE_TYPED_LINE = "Aber sicher.";
@@ -395,18 +393,13 @@ function useIsWideCardScene(): boolean {
 }
 
 function useTypewriter(text: string, startDelay: number, reducedMotion: boolean) {
-    const [visibleCount, setVisibleCount] = useState(reducedMotion ? text.length : 0);
-    const [isComplete, setIsComplete] = useState(reducedMotion);
+    const [visibleCount, setVisibleCount] = useState(0);
+    const [isComplete, setIsComplete] = useState(false);
 
     useEffect(() => {
         if (reducedMotion) {
-            setVisibleCount(text.length);
-            setIsComplete(true);
             return;
         }
-
-        setVisibleCount(0);
-        setIsComplete(false);
 
         let cancelled = false;
         let elapsed = startDelay;
@@ -441,7 +434,9 @@ function useTypewriter(text: string, startDelay: number, reducedMotion: boolean)
         };
     }, [reducedMotion, startDelay, text]);
 
-    return { visibleCount, isComplete };
+    return reducedMotion
+        ? { visibleCount: text.length, isComplete: true }
+        : { visibleCount, isComplete };
 }
 
 function AuroraCanvas({ scrollRef }: { scrollRef: ScrollRef }) {
@@ -938,7 +933,6 @@ function Hero() {
                         >
                             <a
                                 href="https://app.jobbridge.app"
-                                onClick={() => reportConversion()}
                                 className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-[0.9rem] font-medium text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-[0_18px_48px_rgba(147,197,253,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
                             >
                                 Zur Plattform

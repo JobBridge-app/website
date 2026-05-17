@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { reportConversion } from "@/lib/gtag";
 import { Leaf } from "lucide-react";
 
 export function Footer() {
@@ -17,7 +16,6 @@ export function Footer() {
                         <a
                             href="https://app.jobbridge.app"
                             className="hover:text-white transition-colors cursor-pointer"
-                            onClick={() => reportConversion()}
                         >
                             Zur Plattform
                         </a>

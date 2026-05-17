@@ -3,7 +3,6 @@
 import { Shield, UserCheck, Users, Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { reportConversion } from "@/lib/gtag";
 
 export function FeatureSections() {
     return (
@@ -151,7 +150,6 @@ export function FeatureSections() {
                     <Button size="lg" className="rounded-full px-8 bg-cyan-600 hover:bg-cyan-500 text-white" asChild>
                         <a
                             href="https://app.jobbridge.app"
-                            onClick={() => reportConversion()}
                         >
                             Jetzt kostenlos registrieren
                         </a>
