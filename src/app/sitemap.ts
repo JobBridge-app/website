@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://jobbridge.app'
-    const lastModified = new Date('2026-05-17')
+    const lastModified = new Date('2026-06-22')
 
     return [
         {

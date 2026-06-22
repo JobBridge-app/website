@@ -10,7 +10,7 @@ export function Footer() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-500">
                     <div className="text-sm">
                         <span className="font-semibold text-white">JobBridge</span>{" "}
-                        – die digitale Taschengeldbörse für Rheinbach
+                        – die digitale Taschengeldbörse für Deutschland
                     </div>
                     <nav aria-label="Footer-Navigation" className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm">
                         <a
@@ -27,17 +27,19 @@ export function Footer() {
                         </Link>
                     </nav>
                 </div>
-                
+
                 <div className="flex justify-center md:justify-start">
-                    <a 
-                        href="https://climate.stripe.com/rXyipE" 
-                        target="_blank" 
+                    <a
+                        href="https://stripe.com/climate"
+                        target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center gap-2 text-xs text-neutral-500 hover:text-emerald-400 transition-colors duration-300"
+                        className="group flex items-center gap-2 text-xs text-neutral-500 transition-colors duration-300 hover:text-emerald-400"
                     >
-                        <Leaf className="w-3 h-3" />
+                        <Leaf className="h-3 w-3" />
                         <span>Wir spenden 5 % unserer Einnahmen für die CO₂-Entnahme.</span>
-                        <span className="underline decoration-neutral-700 underline-offset-2 group-hover:decoration-emerald-400/50 transition-colors">Mehr erfahren</span>
+                        <span className="underline decoration-neutral-700 underline-offset-2 transition-colors group-hover:decoration-emerald-400/50">
+                            Mehr erfahren
+                        </span>
                     </a>
                 </div>
             </div>

@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { LegalBackButton, LegalPageNavigation, LegalScrollReset, LegalSectionFrame } from "./LegalInteractions";
 
-export const PLATFORM_LEGAL_URL = "https://app.jobbridge.app/legal";
+export const PLATFORM_IMPRINT_URL = "https://app.jobbridge.app/legal/impressum";
+export const PLATFORM_PRIVACY_URL = "https://app.jobbridge.app/legal/datenschutz";
 
 export type LegalNavItem = {
     id: string;
@@ -14,12 +15,16 @@ export function LegalPage({
     intro,
     updatedAt,
     navItems,
+    platformLegalUrl = PLATFORM_IMPRINT_URL,
+    platformLegalLabel = "app.jobbridge.app/legal/impressum",
     children,
 }: {
     title: string;
     intro?: string;
     updatedAt: string;
     navItems: LegalNavItem[];
+    platformLegalUrl?: string;
+    platformLegalLabel?: string;
     children: ReactNode;
 }) {
     return (
@@ -81,7 +86,12 @@ export function LegalPage({
                         {children}
                     </article>
 
-                    <LegalPageNavigation title={title} navItems={navItems} platformLegalUrl={PLATFORM_LEGAL_URL} />
+                    <LegalPageNavigation
+                        title={title}
+                        navItems={navItems}
+                        platformLegalUrl={platformLegalUrl}
+                        platformLegalLabel={platformLegalLabel}
+                    />
                 </div>
             </div>
         </main>

@@ -6,7 +6,7 @@ import {
     LegalNotice,
     LegalPage,
     LegalSection,
-    PLATFORM_LEGAL_URL,
+    PLATFORM_PRIVACY_URL,
     Placeholder,
     type LegalNavItem,
 } from "@/components/legal/LegalPage";
@@ -44,18 +44,20 @@ export default function DatenschutzPage() {
             title="Datenschutz"
             updatedAt={updatedAt}
             navItems={navItems}
+            platformLegalUrl={PLATFORM_PRIVACY_URL}
+            platformLegalLabel="app.jobbridge.app/legal/datenschutz"
         >
             <LegalSection id="geltungsbereich" title="Geltungsbereich">
                 <LegalNotice>
                     Diese Hinweise gelten nur für <strong className="text-white">jobbridge.app</strong>. Für die
                     Plattform unter <strong className="text-white">app.jobbridge.app</strong> gelten die Unterlagen im{" "}
                     <a
-                        href={PLATFORM_LEGAL_URL}
+                        href={PLATFORM_PRIVACY_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-100 underline decoration-cyan-200/40 underline-offset-4 transition hover:text-white"
                     >
-                        Trustcenter unter app.jobbridge.app/legal.
+                        Datenschutzhinweise der Plattform.
                     </a>
                 </LegalNotice>
             </LegalSection>
@@ -161,14 +163,14 @@ export default function DatenschutzPage() {
                     </a>
                     , das{" "}
                     <a
-                        href={PLATFORM_LEGAL_URL}
+                        href={PLATFORM_PRIVACY_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-200 transition hover:text-cyan-100"
                     >
-                        Trustcenter unter app.jobbridge.app/legal
+                        Datenschutzhinweise der Plattform
                     </a>{" "}
-                    und externe Seiten wie Stripe Climate.
+                    und externe Seiten.
                 </p>
                 <p>
                     Für die Datenverarbeitung auf externen Seiten gelten die Datenschutzhinweise des jeweiligen

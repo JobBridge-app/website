@@ -234,10 +234,12 @@ export function LegalPageNavigation({
     title,
     navItems,
     platformLegalUrl,
+    platformLegalLabel,
 }: {
     title: string;
     navItems: LegalNavItem[];
     platformLegalUrl: string;
+    platformLegalLabel: string;
 }) {
     const [activeId, setActiveId] = useState(navItems[0]?.id ?? "");
     const frameRef = useRef<number | null>(null);
@@ -403,10 +405,10 @@ export function LegalPageNavigation({
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 font-medium text-cyan-200 transition hover:text-cyan-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200/70"
                 >
-                    Trustcenter
+                    Plattform-Rechtliches
                     <ExternalLink className="h-3.5 w-3.5" />
                 </a>
-                <p className="mt-3 text-xs leading-5 text-slate-500">app.jobbridge.app/legal</p>
+                <p className="mt-3 text-xs leading-5 text-slate-500">{platformLegalLabel}</p>
             </div>
         </aside>
     );

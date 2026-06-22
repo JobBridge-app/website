@@ -143,6 +143,10 @@
         -moz-osx-font-smoothing: grayscale;
     }
 
+    html {
+        position: relative;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
         html {
             scroll-behavior: smooth;

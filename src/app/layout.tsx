@@ -37,11 +37,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: "JobBridge – Die digitale Taschengeldbörse für Rheinbach",
+        default: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
         template: "%s | JobBridge",
     },
     description:
-        "JobBridge verbindet Jugendliche, Eltern und Auftraggeber in Rheinbach. Sichere Taschengeldjobs mit Verifizierung, Jugendschutz und TrustScore.",
+        "JobBridge verbindet Jugendliche, Eltern und Auftraggeber in Deutschland. Sichere Taschengeldjobs mit Verifizierung, Jugendschutz und klaren Freigaben.",
     applicationName: "JobBridge",
     authors: [{ name: "JobBridge" }],
     creator: "JobBridge",
@@ -65,15 +65,15 @@ export const metadata: Metadata = {
         type: "website",
         locale: "de_DE",
         siteName: "JobBridge",
-        title: "JobBridge – Die digitale Taschengeldbörse für Rheinbach",
+        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
         description:
-            "Sichere Taschengeldjobs für Jugendliche in Rheinbach. Eltern behalten den Überblick, Auftraggeber finden geprüfte Unterstützung.",
+            "Die digitale Taschengeldbörse für Deutschland: Jugendliche finden sichere Jobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung.",
         url: SITE_URL,
         images: [
             {
                 url: "/og-image.png",
-                width: 1024,
-                height: 1024,
+                width: 1200,
+                height: 630,
                 alt: "JobBridge – Die digitale Taschengeldbörse",
                 type: "image/png",
             },
@@ -81,9 +81,9 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "JobBridge – Die digitale Taschengeldbörse",
+        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
         description:
-            "Sichere Taschengeldjobs für Jugendliche in Rheinbach. Verifizierung, Jugendschutz und Transparenz.",
+            "Sichere Taschengeldjobs für Jugendliche. Mit Verifizierung, Jugendschutz und transparenter Freigabe für Eltern.",
         images: ["/og-image.png"],
     },
     alternates: {
@@ -99,10 +99,10 @@ const websiteJsonLd = {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: "JobBridge",
-    alternateName: ["JobBridge Taschengeldbörse", "JobBridge Rheinbach"],
+    alternateName: ["JobBridge Taschengeldbörse", "Digitale Taschengeldbörse"],
     url: SITE_URL,
     description:
-        "Die digitale Taschengeldbörse – sichere Vermittlung von Taschengeldjobs für Jugendliche, Eltern und Auftraggeber in Rheinbach.",
+        "Die digitale Taschengeldbörse – sichere Vermittlung von Taschengeldjobs für Jugendliche, Eltern und Auftraggeber in Deutschland.",
     inLanguage: "de-DE",
     publisher: {
         "@id": `${SITE_URL}/#organization`,
@@ -123,19 +123,11 @@ const organizationJsonLd = {
     },
     image: `${SITE_URL}/og-image.png`,
     description:
-        "JobBridge ist die sichere digitale Taschengeldbörse für Jugendliche, Eltern und Auftraggeber. Gestartet in Rheinbach – mit Verifizierung, Jugendschutz und TrustScore.",
+        "JobBridge ist die sichere digitale Taschengeldbörse für Jugendliche, Eltern und Auftraggeber in Deutschland – mit Verifizierung, Jugendschutz und klaren Freigaben.",
     email: "rezan@jobbridge.app",
-    foundingLocation: {
-        "@type": "City",
-        name: "Rheinbach",
-    },
     areaServed: {
-        "@type": "City",
-        name: "Rheinbach",
-        containedInPlace: {
-            "@type": "AdministrativeArea",
-            name: "Rhein-Sieg-Kreis, Nordrhein-Westfalen, Deutschland",
-        },
+        "@type": "Country",
+        name: "Deutschland",
     },
     knowsAbout: [
         "Taschengeldjobs",
@@ -151,9 +143,9 @@ const webPageJsonLd = {
     "@type": "WebPage",
     "@id": `${SITE_URL}/#webpage`,
     url: SITE_URL,
-    name: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+    name: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
     description:
-        "JobBridge ist die digitale Taschengeldbörse für Rheinbach: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung.",
+        "JobBridge ist die digitale Taschengeldbörse für Deutschland: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung.",
     isPartOf: {
         "@id": `${SITE_URL}/#website`,
     },
@@ -189,6 +181,7 @@ export default function RootLayout({
     return (
         <html
             lang="de"
+            data-scroll-behavior="smooth"
             className={`${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} dark`}
         >
             <head>

@@ -6,7 +6,7 @@ import {
     LegalNotice,
     LegalPage,
     LegalSection,
-    PLATFORM_LEGAL_URL,
+    PLATFORM_IMPRINT_URL,
     type LegalNavItem,
 } from "@/components/legal/LegalPage";
 
@@ -47,12 +47,12 @@ export default function ImpressumPage() {
                     Dieses Impressum gilt nur für <strong className="text-white">jobbridge.app</strong>. Für die
                     Plattform unter <strong className="text-white">app.jobbridge.app</strong> gelten die Unterlagen im{" "}
                     <a
-                        href={PLATFORM_LEGAL_URL}
+                        href={PLATFORM_IMPRINT_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-100 underline decoration-cyan-200/40 underline-offset-4 transition hover:text-white"
                     >
-                        Trustcenter unter app.jobbridge.app/legal.
+                        Impressum der Plattform.
                     </a>
                 </LegalNotice>
             </LegalSection>
@@ -155,7 +155,7 @@ export default function ImpressumPage() {
                     >
                         app.jobbridge.app
                     </a>{" "}
-                    oder das Trustcenter unter app.jobbridge.app/legal öffnen, gelten die dort bereitgestellten
+                    oder die rechtlichen Hinweise der Plattform öffnen, gelten die dort bereitgestellten
                     rechtlichen Hinweise.
                 </p>
             </LegalSection>

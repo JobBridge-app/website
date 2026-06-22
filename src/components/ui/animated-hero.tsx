@@ -197,9 +197,9 @@ const HERO_CARDS: HeroCard[] = [
         description: "Neues iPhone einrichten, Apps übertragen und WLAN verbinden.",
         price: "20 € / Std.",
         distance: "0,8 km entfernt",
-        date: "25.3.2026",
-        author: "Rezan Yalçin",
-        authorInitial: "R",
+        date: "Diese Woche",
+        author: "Lina Weber",
+        authorInitial: "L",
     },
     {
         id: "laptop-printer",
@@ -211,7 +211,7 @@ const HERO_CARDS: HeroCard[] = [
         description: "WLAN prüfen, Drucker koppeln und E-Mail am Laptop einrichten.",
         price: "18 € / Std.",
         distance: "1,4 km entfernt",
-        date: "26.3.2026",
+        date: "Diese Woche",
         author: "Mira Klein",
         authorInitial: "M",
     },
@@ -225,7 +225,7 @@ const HERO_CARDS: HeroCard[] = [
         description: "Hecke sauber schneiden und Grünschnitt ordentlich zusammenlegen.",
         price: "17 € / Std.",
         distance: "2,1 km entfernt",
-        date: "29.3.2026",
+        date: "Samstag",
         author: "Familie Schmitt",
         authorInitial: "S",
     },
@@ -239,7 +239,7 @@ const HERO_CARDS: HeroCard[] = [
         description: "45 Minuten Spaziergang mit ruhigem Familienhund im Viertel.",
         price: "14 € / Std.",
         distance: "1,2 km entfernt",
-        date: "30.3.2026",
+        date: "Nach der Schule",
         author: "Nora Becker",
         authorInitial: "N",
     },
@@ -253,7 +253,7 @@ const HERO_CARDS: HeroCard[] = [
         description: "Wocheneinkauf begleiten und Taschen bis zur Haustür tragen.",
         price: "16 € / Std.",
         distance: "0,9 km entfernt",
-        date: "28.3.2026",
+        date: "Freitag",
         author: "Helga Mohr",
         authorInitial: "H",
     },
@@ -267,7 +267,7 @@ const HERO_CARDS: HeroCard[] = [
         description: "Werkzeug ist da, gebraucht wird eine zweite Hand und Ruhe.",
         price: "19 € / Std.",
         distance: "1,7 km entfernt",
-        date: "31.3.2026",
+        date: "Nächste Woche",
         author: "Jan Berger",
         authorInitial: "J",
     },
@@ -829,6 +829,7 @@ function Hero() {
                         transition={{ duration: 0.8, delay: 0.12, ease: EASE }}
                     >
                         <motion.h1
+                            aria-label={`${HEADLINE_PRIMARY_LINE} ${HEADLINE_TYPED_LINE}`}
                             className="text-balance text-[clamp(3.6rem,9vw,8.4rem)] font-normal leading-[0.97] tracking-[-0.045em] text-white drop-shadow-[0_14px_40px_rgba(96,165,250,0.08)]"
                             style={{
                                 fontFamily: "var(--font-serif), ui-serif, Georgia, serif",
@@ -841,7 +842,7 @@ function Hero() {
                                 ease: EASE,
                             }}
                         >
-                            <span className="block whitespace-nowrap pb-[0.05em]">
+                            <span aria-hidden="true" className="block whitespace-nowrap pb-[0.05em]">
                                 {HEADLINE_PRIMARY_LINE.split(" ").map((word, wordIndex) => (
                                     <Fragment key={`${word}-${wordIndex}`}>
                                         {wordIndex > 0 ? " " : null}
@@ -861,7 +862,7 @@ function Hero() {
                                 ))}
                             </span>
 
-                            <span className="relative -mt-[0.12em] block min-h-[1.02em] whitespace-nowrap pb-[0.02em]">
+                            <span aria-hidden="true" className="relative -mt-[0.12em] block min-h-[1.02em] whitespace-nowrap pb-[0.02em]">
                                 <span
                                     aria-hidden
                                     className="pointer-events-none select-none opacity-0"
@@ -922,7 +923,7 @@ function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.82, delay: 1.44, ease: EASE }}
                         >
-                            JobBridge bringt Jugendliche, Eltern und lokale Auftraggeber in Rheinbach auf eine Plattform, die Schutz nicht als Nachtrag behandelt. Verifizierte Auftraggeber, moderierte Kommunikation und klare Freigaben machen den Einstieg besser.
+                            JobBridge bringt Jugendliche, Eltern und Auftraggeber in Deutschland auf eine Plattform, die Schutz nicht als Nachtrag behandelt. Verifizierte Auftraggeber, moderierte Kommunikation und klare Freigaben machen den Einstieg besser.
                         </motion.p>
 
                         <motion.div

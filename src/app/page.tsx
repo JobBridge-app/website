@@ -5,29 +5,29 @@ import { FeatureSections } from "@/components/FeatureSections";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-    title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+    title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
     description:
-        "JobBridge ist die digitale Taschengeldbörse für Rheinbach: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung. Mit Verifizierung und Jugendschutz.",
+        "JobBridge ist die digitale Taschengeldbörse für Deutschland: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung. Mit Verifizierung und Jugendschutz.",
     alternates: {
         canonical: "/",
     },
     openGraph: {
-        title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
         description:
-            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern, geprüfte Hilfe für Auftraggeber. Jetzt in Rheinbach.",
+            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern und geprüfte Hilfe für Auftraggeber in Deutschland.",
         url: "/",
         images: [
             {
                 url: "/og-image.png",
-                width: 1024,
-                height: 1024,
+                width: 1200,
+                height: 630,
                 alt: "JobBridge – Die digitale Taschengeldbörse",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "JobBridge – Sichere Taschengeldjobs in Rheinbach",
+        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
         description:
             "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern, geprüfte Hilfe für Auftraggeber.",
         images: ["/og-image.png"],
@@ -47,7 +47,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <section id="how-it-works" className="relative z-20">
+            <section className="relative z-20">
                 <HeroScrollDemo />
             </section>
 

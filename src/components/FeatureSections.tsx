@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Shield, UserCheck, Users, Lock, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -71,7 +72,7 @@ export function FeatureSections() {
                         <ul className="space-y-4 mb-8">
                             {[
                                 "Verifizierung aller Auftraggeber via ID-Check",
-                                "Altersgerechte Jobsatelliten (keine schweren Arbeiten)",
+                                "Altersgerechte Jobangebote ohne schwere Arbeiten",
                                 "Eltern-Bestätigung für unter 16-Jährige",
                                 "Datensparsamkeit und deutsche Server"
                             ].map((item, i) => (
@@ -83,8 +84,10 @@ export function FeatureSections() {
                                 </li>
                             ))}
                         </ul>
-                        <Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 rounded-full">
-                            Mehr zum Sicherheitskonzept
+                        <Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 rounded-full" asChild>
+                            <Link href="/datenschutz">
+                                Datenschutzhinweise ansehen
+                            </Link>
                         </Button>
                     </motion.div>
 
