@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Leaf } from "lucide-react";
+import { FooterChat } from "./FooterChat";
 
 export function Footer() {
     return (
@@ -42,6 +43,8 @@ export function Footer() {
                         </span>
                     </a>
                 </div>
+
+                <FooterChat />
             </div>
         </footer>
     );

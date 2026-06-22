@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const isProduction = process.env.NODE_ENV === "production";
+const microsoftCustomerConnectFrame = "https://customerconnect.teams.usercontent.microsoft";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -9,6 +10,7 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https://images.unsplash.com",
   "font-src 'self' data:",
   `connect-src 'self'${isProduction ? "" : " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*"}`,
+  `frame-src 'self' ${microsoftCustomerConnectFrame}`,
   "media-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
