@@ -388,9 +388,10 @@ function DesktopFlow({
                     opacity: detailOpacity,
                     y: reducedMotion ? 0 : detailY,
                 }}
-                className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#05070d] shadow-[0_44px_130px_rgba(2,6,23,0.5)]"
+                className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[1.6rem] border border-white/8 bg-[#050914] shadow-[0_44px_130px_rgba(2,6,23,0.5)]"
             >
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-[44%] bg-[linear-gradient(rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.055)_1px,transparent_1px),radial-gradient(circle_at_82%_0%,rgba(99,102,241,0.15),transparent_42%)] bg-[size:46px_46px,46px_46px,auto]" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_0%,rgba(65,92,166,0.16),transparent_38%)]" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-[42%] bg-[linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.035)_1px,transparent_1px)] bg-[size:52px_52px] opacity-70" />
                 <motion.div
                     style={{
                         opacity: detailContentOpacity,
@@ -398,77 +399,77 @@ function DesktopFlow({
                     }}
                     className="relative flex h-full flex-col"
                 >
-                    <div className="px-8 pb-7 pt-8 xl:px-10 xl:pb-8 xl:pt-9">
+                    <div className="px-8 pb-6 pt-8 xl:px-10 xl:pb-7 xl:pt-8">
                         <div className="flex flex-wrap items-center gap-3">
                             <SurfaceChip job={selectedJob} dense />
                             <span className="h-1 w-1 rounded-full bg-slate-500/80" />
                             <span className="text-[0.9rem] text-slate-400">{selectedJob.requester}</span>
                         </div>
 
-                        <h4 className="mt-5 max-w-[16ch] text-pretty text-[3.55rem] font-semibold leading-[0.94] tracking-[-0.06em] text-white xl:text-[4.45rem]">
+                        <h4 className="mt-5 max-w-[14ch] text-pretty text-[3.05rem] font-semibold leading-[0.98] tracking-[-0.045em] text-white xl:text-[3.8rem]">
                             {selectedJob.title}
                         </h4>
 
-                        <p className="mt-4 max-w-[44rem] text-[1.08rem] leading-relaxed text-slate-300 xl:text-[1.16rem]">
+                        <p className="mt-4 max-w-[37rem] text-[1.03rem] leading-[1.58] text-slate-300/88 xl:text-[1.08rem]">
                             {selectedJob.description}
                         </p>
 
-                        <div className="mt-5">
+                        <div className="mt-5 max-w-[48rem]">
                             <DetailMetaRow job={selectedJob} />
                         </div>
                     </div>
 
-                    <div className="flex min-h-0 flex-1 flex-col border-t border-white/8 bg-black/22">
-                        <div className="grid min-h-0 flex-1 grid-cols-2 gap-4 px-8 py-5 xl:px-10">
+                    <div className="flex min-h-0 flex-1 flex-col border-t border-white/7 bg-[#050914]/80">
+                        <div className="grid min-h-0 flex-1 grid-cols-[0.98fr_1.02fr] gap-5 px-8 py-5 xl:px-10">
                             <div className="flex min-h-0 flex-col">
-                                <div className="flex items-center gap-3 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                                <div className="flex items-center gap-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-500">
                                     <ShieldCheck className="h-4 w-4 text-slate-500" />
                                     Sicherheit
                                 </div>
-                                <div className="relative mt-3 flex min-h-0 flex-1 items-center gap-6 overflow-hidden rounded-[1.25rem] border border-white/8 bg-[linear-gradient(135deg,rgba(13,22,38,0.98),rgba(7,12,22,0.98))] px-7 py-5">
-                                    <ShieldCheck className="pointer-events-none absolute -bottom-11 -right-8 h-44 w-44 text-white/[0.025]" />
-                                    <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-300 shadow-[0_0_44px_rgba(52,211,153,0.08)]">
-                                        <Check className="h-8 w-8" />
+                                <div className="relative mt-3 flex min-h-0 flex-1 items-center gap-5 overflow-hidden rounded-[1.15rem] border border-white/[0.075] bg-[#08111f] px-6 py-5">
+                                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(52,211,153,0.08),transparent_38%)]" />
+                                    <span className="relative flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-full bg-emerald-300/[0.08] text-emerald-200 ring-1 ring-emerald-200/10">
+                                        <Check className="h-6 w-6" />
                                     </span>
                                     <div className="relative">
-                                        <p className="text-[1.35rem] font-semibold tracking-[-0.03em] text-white">Geprüfter Job</p>
-                                        <p className="mt-2 max-w-[30rem] text-[0.98rem] leading-relaxed text-slate-400">
-                                            Dieser Job wurde vom JobBridge-Team geprüft und freigegeben.
+                                        <p className="text-[1.18rem] font-semibold tracking-[-0.025em] text-white">Geprüfter Job</p>
+                                        <p className="mt-1.5 max-w-[28rem] text-[0.92rem] leading-relaxed text-slate-400">
+                                            Vom JobBridge-Team geprüft und freigegeben.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="flex min-h-0 flex-col">
-                                <div className="flex items-center gap-3 text-[0.76rem] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                                <div className="flex items-center gap-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-500">
                                     <MapPin className="h-4 w-4 text-slate-500" />
                                     Standort
                                 </div>
-                                <div className="relative mt-3 min-h-0 flex-1 overflow-hidden rounded-[1.25rem] border border-white/8 bg-[#080d17]">
-                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.07)_1px,transparent_1px)] bg-[size:30px_30px] opacity-60" />
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.28),transparent_42%)]" />
-                                    <div className="absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border-[7px] border-white bg-indigo-400 shadow-[0_0_38px_rgba(129,140,248,0.72)]" />
-                                    <span className="absolute left-5 top-4 rounded-full bg-black/40 px-3 py-1.5 text-[0.78rem] font-medium text-white/72">
+                                <div className="relative mt-3 min-h-0 flex-1 overflow-hidden rounded-[1.15rem] border border-white/[0.075] bg-[#070d18]">
+                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.055)_1px,transparent_1px)] bg-[size:34px_34px] opacity-45" />
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.2),transparent_40%)]" />
+                                    <div className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border-[6px] border-white bg-indigo-400 shadow-[0_0_30px_rgba(129,140,248,0.54)]" />
+                                    <span className="absolute left-5 top-4 rounded-full border border-white/6 bg-white/[0.055] px-3 py-1.5 text-[0.76rem] font-medium text-white/68">
                                         Ungefähre Lage
                                     </span>
-                                    <span className="absolute bottom-5 right-6 text-[2rem] font-semibold tracking-[-0.04em] text-white/14">
+                                    <span className="absolute bottom-5 right-6 text-[1.28rem] font-semibold tracking-[-0.035em] text-white/22">
                                         {selectedJob.distance}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-t border-white/8 bg-[#0c1324] px-8 py-4 xl:px-10">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-t border-white/8 bg-[#081225]/95 px-8 py-3.5 xl:px-10">
                             <div>
-                                <p className="text-[1.12rem] text-slate-300">Interesse geweckt?</p>
-                                <p className="mt-1 text-[0.9rem] text-slate-500">Die Bewerbung läuft direkt über JobBridge.</p>
+                                <p className="text-[1.03rem] text-slate-300">Interesse geweckt?</p>
+                                <p className="mt-1 text-[0.86rem] text-slate-500">Die Bewerbung läuft direkt über JobBridge.</p>
                             </div>
                             <button
                                 type="button"
-                                className="inline-flex min-w-[18rem] items-center justify-center gap-3 rounded-full bg-[#2563eb] px-8 py-3.5 text-[1.1rem] font-semibold text-white shadow-[0_20px_52px_rgba(37,99,235,0.36)]"
+                                className="inline-flex min-w-[15.5rem] items-center justify-center gap-3 rounded-full bg-[#2563eb] px-7 py-3 text-[1rem] font-semibold text-white shadow-[0_18px_44px_rgba(37,99,235,0.32)]"
                             >
                                 Jetzt bewerben
-                                <ArrowRight className="h-5 w-5" />
+                                <ArrowRight className="h-4 w-4" />
                             </button>
                         </div>
                     </div>
@@ -534,58 +535,10 @@ function MobileLayer({
     );
 }
 
-function JobClickCue({
-    tapOpacity,
-    tapScale,
-    highlightOpacity,
-    reducedMotion,
-    roundedClass = "rounded-[1.65rem]",
-}: {
-    tapOpacity: MotionValue<number>;
-    tapScale: MotionValue<number>;
-    highlightOpacity: MotionValue<number>;
-    reducedMotion: boolean;
-    roundedClass?: string;
-}) {
-    return (
-        <>
-            <motion.div
-                aria-hidden
-                style={{ opacity: reducedMotion ? 0 : highlightOpacity }}
-                className={`pointer-events-none absolute inset-0 ${roundedClass} border border-emerald-200/24 bg-emerald-300/[0.022] shadow-[0_0_42px_rgba(52,211,153,0.1)]`}
-            />
-            <motion.div
-                aria-hidden
-                style={{ opacity: reducedMotion ? 0 : tapOpacity, scale: reducedMotion ? 1 : tapScale }}
-                className="pointer-events-none absolute right-6 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-emerald-100/30 bg-slate-950/72 shadow-[0_14px_34px_rgba(2,6,23,0.32)]"
-            >
-                <span className="absolute h-14 w-14 rounded-full border border-emerald-200/18" />
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-200 shadow-[0_0_16px_rgba(167,243,208,0.72)]" />
-            </motion.div>
-        </>
-    );
-}
-
-function MobileJobStep({
-    tapOpacity,
-    tapScale,
-    highlightOpacity,
-    reducedMotion,
-}: {
-    tapOpacity: MotionValue<number>;
-    tapScale: MotionValue<number>;
-    highlightOpacity: MotionValue<number>;
-    reducedMotion: boolean;
-}) {
+function MobileJobStep() {
     return (
         <div data-flow-step="mobile-job" className="relative w-full">
             <FeedJobCard job={selectedJob} selected compact showCategoryChip={false} />
-            <JobClickCue
-                tapOpacity={tapOpacity}
-                tapScale={tapScale}
-                highlightOpacity={highlightOpacity}
-                reducedMotion={reducedMotion}
-            />
         </div>
     );
 }
@@ -652,9 +605,6 @@ function MobilePlatformSequence({
     const jobOpacity = useTransform(progress, [0, 0.28, 0.38], [1, 1, 0]);
     const jobY = useTransform(progress, [0.28, 0.38], [0, -26]);
     const jobScale = useTransform(progress, [0.28, 0.38], [1, 0.98]);
-    const jobTapOpacity = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0, 0.82, 0.82, 0]);
-    const jobTapScale = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0.94, 1, 1.02, 0.98]);
-    const jobHighlightOpacity = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0, 0.46, 0.34, 0]);
 
     const detailOpacity = useTransform(progress, [0.34, 0.44, 0.56, 0.64], [0, 1, 1, 0]);
     const detailY = useTransform(progress, [0.34, 0.44, 0.56, 0.64], [28, 0, 0, -18]);
@@ -671,12 +621,7 @@ function MobilePlatformSequence({
     return (
         <div data-platform-mobile-sequence className="relative h-full overflow-hidden">
             <MobileLayer opacity={jobOpacity} y={jobY} scale={jobScale} reducedMotion={reducedMotion}>
-                <MobileJobStep
-                    tapOpacity={jobTapOpacity}
-                    tapScale={jobTapScale}
-                    highlightOpacity={jobHighlightOpacity}
-                    reducedMotion={reducedMotion}
-                />
+                <MobileJobStep />
             </MobileLayer>
             <MobileLayer opacity={detailOpacity} y={detailY} scale={detailScale} reducedMotion={reducedMotion}>
                 <MobileDetailStep />
@@ -703,9 +648,6 @@ function DesktopPlatformSequence({
     const feedScale = useTransform(progress, [0.18, 0.36], [1, 0.996]);
     const feedY = useTransform(progress, [0.18, 0.36], [0, -4]);
     const stageBackdropOpacity = useTransform(progress, [0.32, 0.44, 0.72, 0.84], [0, 0.22, 0.5, 0.72]);
-    const jobTapOpacity = useTransform(progress, [0.16, 0.22, 0.3, 0.36], [0, 0.78, 0.78, 0]);
-    const jobTapScale = useTransform(progress, [0.16, 0.22, 0.3, 0.36], [0.95, 1, 1.02, 0.98]);
-    const jobHighlightOpacity = useTransform(progress, [0.16, 0.22, 0.32, 0.38], [0, 0.42, 0.3, 0]);
     const feedCardOpacity = [1, 0.68, 0.58, 0.38, 0.27, 0.16, 0.1, 0.05];
 
     return (
@@ -779,15 +721,6 @@ function DesktopPlatformSequence({
                                     className="relative min-h-[15rem]"
                                 >
                                     <FeedJobCard job={job} selected={index === 0} dense />
-                                    {index === 0 ? (
-                                        <JobClickCue
-                                            tapOpacity={jobTapOpacity}
-                                            tapScale={jobTapScale}
-                                            highlightOpacity={jobHighlightOpacity}
-                                            reducedMotion={reducedMotion}
-                                            roundedClass="rounded-[1.6rem]"
-                                        />
-                                    ) : null}
                                 </motion.div>
                             ))}
                         </div>

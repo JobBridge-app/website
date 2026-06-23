@@ -26,6 +26,7 @@ import {
     Wrench,
     X,
 } from "lucide-react";
+import { mainNavItems, menuMetaLinks } from "@/config/site";
 
 const HEADLINE_PRIMARY_LINE = "Dein erster Job.";
 const HEADLINE_TYPED_LINE = "Aber sicher.";
@@ -35,20 +36,8 @@ const MENU_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const MOBILE_NOISE_URL =
     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23noise)' opacity='0.09'/%3E%3C/svg%3E\")";
 
-const HERO_MENU_ITEMS = [
-    { label: "Startseite", href: "/" },
-    { label: "Sicherheit", href: "/sicherheit" },
-    { label: "Demnächst", href: "/demnaechst" },
-    { label: "Blog", href: "/blog" },
-    { label: "Kontakt", href: "/kontakt" },
-];
-
-const HERO_MENU_META_LINKS = [
-    { label: "Plattform", href: "https://app.jobbridge.app" },
-    { label: "Impressum", href: "/impressum" },
-    { label: "Datenschutz", href: "/datenschutz" },
-    { label: "E-Mail", href: "mailto:rezan@jobbridge.app" },
-];
+const HERO_MENU_ITEMS = mainNavItems;
+const HERO_MENU_META_LINKS = menuMetaLinks;
 
 function scrollToHowItWorksStage(reducedMotion: boolean) {
     const section = document.getElementById("how-it-works");
@@ -752,7 +741,7 @@ function HeroVisual({
 
 function handleHeroMenuNavigation(
     event: MouseEvent<HTMLAnchorElement>,
-    item: (typeof HERO_MENU_ITEMS)[number],
+    item: { href: string },
     isCurrent: boolean,
     reducedMotion: boolean,
     closeMenu: () => void

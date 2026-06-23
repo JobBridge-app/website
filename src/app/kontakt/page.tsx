@@ -1,25 +1,35 @@
 import type { Metadata } from "next";
 import { PlaceholderPage } from "@/components/PlaceholderPage";
+import { placeholderPages } from "@/config/site";
+
+const page = placeholderPages.kontakt;
 
 export const metadata: Metadata = {
-    title: "Kontakt",
-    description: "Kontaktseite von JobBridge.",
+    title: page.navLabel,
+    description: page.metaDescription,
     alternates: {
-        canonical: "/kontakt",
+        canonical: page.path,
     },
     openGraph: {
-        title: "Kontakt | JobBridge",
-        description: "Kontaktseite von JobBridge.",
-        url: "/kontakt",
+        title: `${page.navLabel} | JobBridge`,
+        description: page.metaDescription,
+        url: page.path,
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "JobBridge" }],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `${page.navLabel} | JobBridge`,
+        description: page.metaDescription,
+        images: ["/og-image.png"],
     },
 };
 
 export default function KontaktPage() {
     return (
         <PlaceholderPage
-            eyebrow="Kontakt"
-            title="Kontakt"
-            description="Diese Seite wird gerade vorbereitet."
+            eyebrow={page.eyebrow}
+            title={page.title}
+            description={page.description}
         />
     );
 }

@@ -4,33 +4,31 @@ import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo";
 import { TrustNarrative } from "@/components/TrustNarrative";
 import { FeatureSections } from "@/components/FeatureSections";
 import { Footer } from "@/components/Footer";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-    title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
-    description:
-        "JobBridge ist die digitale Taschengeldbörse für Deutschland: Jugendliche finden sichere Taschengeldjobs, Eltern behalten den Überblick und Auftraggeber erhalten geprüfte Unterstützung. Mit Verifizierung und Jugendschutz.",
+    title: siteConfig.defaultTitle,
+    description: siteConfig.defaultDescription,
     alternates: {
         canonical: "/",
     },
     openGraph: {
-        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
-        description:
-            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern und geprüfte Hilfe für Auftraggeber in Deutschland.",
+        title: `${siteConfig.name} – ${siteConfig.defaultTitle}`,
+        description: siteConfig.defaultDescription,
         url: "/",
         images: [
             {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "JobBridge – Die digitale Taschengeldbörse",
+                alt: `${siteConfig.name} – Die digitale Taschengeldbörse`,
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "JobBridge – Sichere Taschengeldjobs für Jugendliche",
-        description:
-            "Die digitale Taschengeldbörse: sichere Jobs für Jugendliche, volle Transparenz für Eltern, geprüfte Hilfe für Auftraggeber.",
+        title: `${siteConfig.name} – ${siteConfig.defaultTitle}`,
+        description: siteConfig.defaultDescription,
         images: ["/og-image.png"],
     },
 };

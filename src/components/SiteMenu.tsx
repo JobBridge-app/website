@@ -5,24 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { mainNavItems, menuMetaLinks } from "@/config/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const MENU_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const MENU_ITEMS = [
-    { label: "Startseite", href: "/" },
-    { label: "Sicherheit", href: "/sicherheit" },
-    { label: "Demnächst", href: "/demnaechst" },
-    { label: "Blog", href: "/blog" },
-    { label: "Kontakt", href: "/kontakt" },
-];
-
-const META_LINKS = [
-    { label: "Plattform", href: "https://app.jobbridge.app" },
-    { label: "Impressum", href: "/impressum" },
-    { label: "Datenschutz", href: "/datenschutz" },
-    { label: "E-Mail", href: "mailto:rezan@jobbridge.app" },
-];
+const MENU_ITEMS = mainNavItems;
+const META_LINKS = menuMetaLinks;
 
 function MenuWord({ label, active }: { label: string; active: boolean }) {
     return (

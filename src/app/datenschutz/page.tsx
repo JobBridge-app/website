@@ -4,19 +4,35 @@ import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { SiteMenuButton } from "@/components/SiteMenu";
+import { siteConfig } from "@/config/site";
 
 const updatedAt = "23. Juni 2026";
 const platformPrivacyUrl = "https://app.jobbridge.app/legal/datenschutz";
 
 export const metadata: Metadata = {
     title: "Datenschutz",
-    description: "Datenschutzhinweise für die JobBridge-Landingpage unter jobbridge.app.",
+    description:
+        "Datenschutzhinweise für jobbridge.app: welche Daten auf der JobBridge-Landingpage entstehen, wofür sie genutzt werden und welche Rechte bestehen.",
     robots: {
         index: true,
         follow: true,
     },
     alternates: {
         canonical: "/datenschutz",
+    },
+    openGraph: {
+        title: `Datenschutz | ${siteConfig.name}`,
+        description:
+            "Klarer Überblick über Datenverarbeitung, Kontakt, Chat, Hosting und Rechte auf der JobBridge-Landingpage.",
+        url: "/datenschutz",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `Datenschutz | ${siteConfig.name}`,
+        description:
+            "Klarer Überblick über Datenverarbeitung, Kontakt, Chat, Hosting und Rechte auf der JobBridge-Landingpage.",
+        images: ["/og-image.png"],
     },
 };
 
