@@ -534,10 +534,58 @@ function MobileLayer({
     );
 }
 
-function MobileJobStep() {
+function JobClickCue({
+    tapOpacity,
+    tapScale,
+    highlightOpacity,
+    reducedMotion,
+    roundedClass = "rounded-[1.65rem]",
+}: {
+    tapOpacity: MotionValue<number>;
+    tapScale: MotionValue<number>;
+    highlightOpacity: MotionValue<number>;
+    reducedMotion: boolean;
+    roundedClass?: string;
+}) {
     return (
-        <div data-flow-step="mobile-job" className="w-full">
+        <>
+            <motion.div
+                aria-hidden
+                style={{ opacity: reducedMotion ? 0 : highlightOpacity }}
+                className={`pointer-events-none absolute inset-0 ${roundedClass} border border-emerald-200/24 bg-emerald-300/[0.022] shadow-[0_0_42px_rgba(52,211,153,0.1)]`}
+            />
+            <motion.div
+                aria-hidden
+                style={{ opacity: reducedMotion ? 0 : tapOpacity, scale: reducedMotion ? 1 : tapScale }}
+                className="pointer-events-none absolute right-6 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-emerald-100/30 bg-slate-950/72 shadow-[0_14px_34px_rgba(2,6,23,0.32)]"
+            >
+                <span className="absolute h-14 w-14 rounded-full border border-emerald-200/18" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-200 shadow-[0_0_16px_rgba(167,243,208,0.72)]" />
+            </motion.div>
+        </>
+    );
+}
+
+function MobileJobStep({
+    tapOpacity,
+    tapScale,
+    highlightOpacity,
+    reducedMotion,
+}: {
+    tapOpacity: MotionValue<number>;
+    tapScale: MotionValue<number>;
+    highlightOpacity: MotionValue<number>;
+    reducedMotion: boolean;
+}) {
+    return (
+        <div data-flow-step="mobile-job" className="relative w-full">
             <FeedJobCard job={selectedJob} selected compact showCategoryChip={false} />
+            <JobClickCue
+                tapOpacity={tapOpacity}
+                tapScale={tapScale}
+                highlightOpacity={highlightOpacity}
+                reducedMotion={reducedMotion}
+            />
         </div>
     );
 }
@@ -601,26 +649,34 @@ function MobilePlatformSequence({
     progress: MotionValue<number>;
     reducedMotion: boolean;
 }) {
-    const jobOpacity = useTransform(progress, [0, 0.2, 0.3], [1, 1, 0]);
-    const jobY = useTransform(progress, [0.2, 0.3], [0, -26]);
-    const jobScale = useTransform(progress, [0.2, 0.3], [1, 0.98]);
+    const jobOpacity = useTransform(progress, [0, 0.28, 0.38], [1, 1, 0]);
+    const jobY = useTransform(progress, [0.28, 0.38], [0, -26]);
+    const jobScale = useTransform(progress, [0.28, 0.38], [1, 0.98]);
+    const jobTapOpacity = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0, 0.82, 0.82, 0]);
+    const jobTapScale = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0.94, 1, 1.02, 0.98]);
+    const jobHighlightOpacity = useTransform(progress, [0.15, 0.21, 0.31, 0.37], [0, 0.46, 0.34, 0]);
 
-    const detailOpacity = useTransform(progress, [0.24, 0.34, 0.48, 0.58], [0, 1, 1, 0]);
-    const detailY = useTransform(progress, [0.24, 0.34, 0.48, 0.58], [28, 0, 0, -18]);
-    const detailScale = useTransform(progress, [0.24, 0.34, 0.48, 0.58], [0.98, 1, 1, 0.985]);
+    const detailOpacity = useTransform(progress, [0.34, 0.44, 0.56, 0.64], [0, 1, 1, 0]);
+    const detailY = useTransform(progress, [0.34, 0.44, 0.56, 0.64], [28, 0, 0, -18]);
+    const detailScale = useTransform(progress, [0.34, 0.44, 0.56, 0.64], [0.98, 1, 1, 0.985]);
 
-    const applyOpacity = useTransform(progress, [0.5, 0.6, 0.68, 0.76], [0, 1, 1, 0]);
-    const applyY = useTransform(progress, [0.5, 0.6, 0.68, 0.76], [28, 0, 0, -12]);
-    const applyScale = useTransform(progress, [0.5, 0.6], [0.98, 1]);
+    const applyOpacity = useTransform(progress, [0.6, 0.68, 0.74, 0.82], [0, 1, 1, 0]);
+    const applyY = useTransform(progress, [0.6, 0.68, 0.74, 0.82], [28, 0, 0, -12]);
+    const applyScale = useTransform(progress, [0.6, 0.68], [0.98, 1]);
 
-    const successOpacity = useTransform(progress, [0.72, 0.82], [0, 1]);
-    const successY = useTransform(progress, [0.72, 0.82], [26, 0]);
-    const successScale = useTransform(progress, [0.72, 0.82], [0.95, 1]);
+    const successOpacity = useTransform(progress, [0.8, 0.9], [0, 1]);
+    const successY = useTransform(progress, [0.8, 0.9], [26, 0]);
+    const successScale = useTransform(progress, [0.8, 0.9], [0.95, 1]);
 
     return (
         <div data-platform-mobile-sequence className="relative h-full overflow-hidden">
             <MobileLayer opacity={jobOpacity} y={jobY} scale={jobScale} reducedMotion={reducedMotion}>
-                <MobileJobStep />
+                <MobileJobStep
+                    tapOpacity={jobTapOpacity}
+                    tapScale={jobTapScale}
+                    highlightOpacity={jobHighlightOpacity}
+                    reducedMotion={reducedMotion}
+                />
             </MobileLayer>
             <MobileLayer opacity={detailOpacity} y={detailY} scale={detailScale} reducedMotion={reducedMotion}>
                 <MobileDetailStep />
@@ -647,6 +703,9 @@ function DesktopPlatformSequence({
     const feedScale = useTransform(progress, [0.18, 0.36], [1, 0.996]);
     const feedY = useTransform(progress, [0.18, 0.36], [0, -4]);
     const stageBackdropOpacity = useTransform(progress, [0.32, 0.44, 0.72, 0.84], [0, 0.22, 0.5, 0.72]);
+    const jobTapOpacity = useTransform(progress, [0.16, 0.22, 0.3, 0.36], [0, 0.78, 0.78, 0]);
+    const jobTapScale = useTransform(progress, [0.16, 0.22, 0.3, 0.36], [0.95, 1, 1.02, 0.98]);
+    const jobHighlightOpacity = useTransform(progress, [0.16, 0.22, 0.32, 0.38], [0, 0.42, 0.3, 0]);
     const feedCardOpacity = [1, 0.68, 0.58, 0.38, 0.27, 0.16, 0.1, 0.05];
 
     return (
@@ -717,9 +776,18 @@ function DesktopPlatformSequence({
                                     style={{
                                         opacity: index === 0 ? selectedFeedOpacity : feedCardOpacity[index] ?? 0.05,
                                     }}
-                                    className="min-h-[15rem]"
+                                    className="relative min-h-[15rem]"
                                 >
                                     <FeedJobCard job={job} selected={index === 0} dense />
+                                    {index === 0 ? (
+                                        <JobClickCue
+                                            tapOpacity={jobTapOpacity}
+                                            tapScale={jobTapScale}
+                                            highlightOpacity={jobHighlightOpacity}
+                                            reducedMotion={reducedMotion}
+                                            roundedClass="rounded-[1.6rem]"
+                                        />
+                                    ) : null}
                                 </motion.div>
                             ))}
                         </div>
