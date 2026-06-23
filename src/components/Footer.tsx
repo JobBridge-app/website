@@ -31,7 +31,7 @@ export function Footer() {
 
                 <div className="flex justify-center md:justify-start">
                     <a
-                        href="https://stripe.com/climate"
+                        href="https://climate.stripe.com/rXyipE"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2 text-xs text-neutral-500 transition-colors duration-300 hover:text-emerald-400"

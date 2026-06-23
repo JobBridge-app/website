@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/ui/animated-hero";
 import { HeroScrollDemo } from "@/components/ui/hero-scroll-demo";
+import { TrustNarrative } from "@/components/TrustNarrative";
 import { FeatureSections } from "@/components/FeatureSections";
 import { Footer } from "@/components/Footer";
 
@@ -50,6 +51,8 @@ export default function HomePage() {
             <section className="relative z-20">
                 <HeroScrollDemo />
             </section>
+
+            <TrustNarrative />
 
             <FeatureSections />
 
