@@ -7,6 +7,7 @@ import {
     ArrowRight,
     ArrowUpRight,
     Blocks,
+    ChevronDown,
     Fan,
     Flower2,
     Origami,
@@ -343,49 +344,55 @@ export function FeatureSections() {
                 </div>
             </section>
 
-            {/* --- Sektion: So startest du (Stepper) --- */}
+            {/* --- Sektion: Abschluss-CTA --- */}
             <motion.section
                 id="so-gehts"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="container mx-auto border-t border-white/5 px-5 py-24 md:px-6"
+                transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+                className="relative isolate overflow-hidden border-t border-white/5 px-5 py-20 md:px-8 md:py-28"
             >
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">So startest du durch</h2>
-                    <p className="text-neutral-400">In 3 einfachen Schritten zum Ziel.</p>
-                </div>
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 -z-10 opacity-[0.34]"
+                    style={{
+                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.22) 1.25px, transparent 1.35px)",
+                        backgroundPosition: "center",
+                        backgroundSize: "28px 28px",
+                        maskImage: "radial-gradient(ellipse at center, black 0%, black 32%, rgba(0,0,0,0.48) 54%, transparent 78%)",
+                        WebkitMaskImage:
+                            "radial-gradient(ellipse at center, black 0%, black 32%, rgba(0,0,0,0.48) 54%, transparent 78%)",
+                    }}
+                />
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_48%,rgba(37,99,235,0.12),transparent_34%),linear-gradient(180deg,rgba(2,4,11,0)_0%,rgba(2,4,11,0.74)_100%)]"
+                />
 
-                <div className="grid md:grid-cols-3 gap-8 relative">
-                    {/* Connector Line (Desktop only) */}
-                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent z-0" />
+                <div className="mx-auto flex min-h-[28rem] max-w-[76rem] flex-col items-center justify-center text-center md:min-h-[34rem]">
+                    <p className="mb-7 text-[1rem] font-medium tracking-[-0.025em] text-white/78 md:mb-8 md:text-[1.22rem]">
+                        Bereit für den ersten sicheren Job?
+                    </p>
 
-                    <Step
-                        number="01"
-                        title="Rolle wählen & Konto erstellen"
-                        desc="Entscheide dich: Willst du Jobs erledigen oder vergeben? Registriere dich kostenlos."
-                    />
-                    <Step
-                        number="02"
-                        title="Profil vervollständigen"
-                        desc="Erzähl uns kurz von dir (oder deinem Jobangebot). Wir prüfen die Angaben zur Sicherheit."
-                    />
-                    <Step
-                        number="03"
-                        title="Loslegen & Verdienen"
-                        desc="Finde passende Jobs in der Umgebung oder erhalte Hilfsangebote. Einfach, schnell, fair."
-                    />
-                </div>
+                    <a
+                        href="https://app.jobbridge.app"
+                        className="group relative flex h-[6.25rem] w-full max-w-[42rem] items-center overflow-hidden rounded-full bg-[#202020] p-3 text-white shadow-[0_24px_80px_rgba(0,0,0,0.38)] outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-4 focus-visible:ring-offset-neutral-950 md:h-[8.25rem] md:p-4"
+                        aria-label="Zur JobBridge Plattform"
+                    >
+                        <span
+                            aria-hidden="true"
+                            className="absolute inset-y-3 left-3 z-0 w-[4.75rem] rounded-full bg-[#f2f2f2] transition-[width,box-shadow] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-[calc(100%_-_1.5rem)] group-hover:shadow-[0_0_58px_rgba(255,255,255,0.16)] md:inset-y-4 md:left-4 md:w-[6.25rem] md:group-hover:w-[calc(100%_-_2rem)]"
+                        />
 
-                <div className="text-center mt-16">
-                    <Button size="lg" className="rounded-full px-8 bg-cyan-600 hover:bg-cyan-500 text-white" asChild>
-                        <a
-                            href="https://app.jobbridge.app"
-                        >
-                            Jetzt kostenlos registrieren
-                        </a>
-                    </Button>
+                        <span className="absolute left-3 top-3 z-20 grid h-[4.75rem] w-[4.75rem] place-items-center text-black transition-[left,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:left-1/2 group-hover:-translate-x-1/2 md:left-4 md:top-4 md:h-[6.25rem] md:w-[6.25rem]">
+                            <ChevronDown className="h-8 w-8 stroke-[3] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-90 md:h-9 md:w-9" />
+                        </span>
+
+                        <span className="relative z-10 flex min-w-0 flex-1 items-center justify-center pl-[5.25rem] pr-4 text-[clamp(2.15rem,8vw,4.7rem)] font-semibold leading-none tracking-[-0.055em] transition-opacity duration-300 ease-out group-hover:opacity-0 md:pl-[6.75rem]">
+                            Zur Plattform
+                        </span>
+                    </a>
                 </div>
             </motion.section>
         </div>
@@ -492,16 +499,4 @@ function SafetyGlyph({ name, accent, compact = false }: { name: SafetyGlyphName;
             </svg>
         </div>
     );
-}
-
-function Step({ number, title, desc }: { number: string, title: string, desc: string }) {
-    return (
-        <div className="relative z-10 flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-full bg-neutral-900 border-4 border-neutral-950 shadow-[0_0_0_8px_rgba(255,255,255,0.05)] flex items-center justify-center text-2xl font-bold text-cyan-400 mb-6">
-                {number}
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-            <p className="text-neutral-400 text-sm max-w-xs">{desc}</p>
-        </div>
-    )
 }
