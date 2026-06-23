@@ -1,52 +1,153 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, UserCheck, Users, Lock, CheckCircle2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Blocks, CheckCircle2, Fan, Flower2, Lock, Origami, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+
+const audienceItems: Array<{
+    title: string;
+    description: string;
+    Icon: LucideIcon;
+    iconClassName: string;
+}> = [
+    {
+        title: "Jugendliche & Eltern",
+        description:
+            "Ein gemeinsamer Einstieg: Jugendliche finden passende Aufgaben in der Nähe, Eltern behalten Freigaben, Grenzen und Sicherheit im Blick.",
+        Icon: Flower2,
+        iconClassName: "text-[#ff7a6f]",
+    },
+    {
+        title: "Private Auftraggeber",
+        description:
+            "Für Haushalte und Nachbarschaften, die kurzfristig Unterstützung brauchen und Aufgaben sauber, nachvollziehbar und persönlich vergeben möchten.",
+        Icon: Fan,
+        iconClassName: "text-[#27e5cf]",
+    },
+    {
+        title: "Gewerbliche Auftraggeber",
+        description:
+            "Für kleine Unternehmen, Praxen, Läden und lokale Teams, die einfache Tätigkeiten planbar besetzen wollen, ohne den Überblick zu verlieren.",
+        Icon: Blocks,
+        iconClassName: "text-[#6bc8ff]",
+    },
+    {
+        title: "Vereine & Organisationen",
+        description:
+            "Für lokale Organisationen, die verlässliche Hilfe für Veranstaltungen, Alltag und kleine Aufgaben suchen, mit klaren Rollen für alle Seiten.",
+        Icon: Origami,
+        iconClassName: "text-[#f8d8cf]",
+    },
+];
 
 export function FeatureSections() {
+    const contentRef = useRef<HTMLDivElement | null>(null);
+    const reducedMotion = useReducedMotion() ?? false;
+    const [hasRevealed, setHasRevealed] = useState(false);
+    const revealState = reducedMotion || hasRevealed ? "show" : "hidden";
+
+    useEffect(() => {
+        if (reducedMotion) return;
+
+        const element = contentRef.current;
+        if (!element) return;
+
+        const checkVisibility = () => {
+            const rect = element.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+            const isVisible = rect.top < viewportHeight * 0.82 && rect.bottom > viewportHeight * 0.12;
+
+            if (isVisible) {
+                setHasRevealed(true);
+            }
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry?.isIntersecting) {
+                    setHasRevealed(true);
+                }
+            },
+            { rootMargin: "0px 0px -12% 0px", threshold: 0.18 }
+        );
+
+        const frame = window.requestAnimationFrame(checkVisibility);
+        observer.observe(element);
+        window.addEventListener("scroll", checkVisibility, { passive: true });
+        window.addEventListener("resize", checkVisibility);
+
+        return () => {
+            observer.disconnect();
+            window.cancelAnimationFrame(frame);
+            window.removeEventListener("scroll", checkVisibility);
+            window.removeEventListener("resize", checkVisibility);
+        };
+    }, [reducedMotion]);
+
+    const revealVariants = {
+        hidden: {
+            opacity: reducedMotion ? 1 : 0,
+            y: reducedMotion ? 0 : 22,
+        },
+        show: (delay = 0) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: reducedMotion ? 0 : delay,
+                duration: reducedMotion ? 0.01 : 0.82,
+                ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+            },
+        }),
+    };
+
     return (
         <div className="relative z-10 w-full bg-neutral-950">
 
             {/* --- Sektion: Für wen ist JobBridge? --- */}
-            <motion.section
+            <section
                 id="fuer-wen"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="container mx-auto px-5 pb-24 pt-12 md:px-6 md:pt-14"
+                className="relative overflow-hidden px-5 pb-24 pt-20 md:px-8 md:pb-32 md:pt-24"
             >
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Für wen ist JobBridge?</h2>
-                    <p className="text-neutral-400 max-w-2xl mx-auto">
-                        Eine Plattform, drei Perspektiven. Wir bringen zusammen, was zusammengehört –
-                        mit klaren Regeln und Vorteilen für alle Beteiligten.
-                    </p>
-                </div>
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,122,111,0.12),transparent_28%),radial-gradient(circle_at_78%_26%,rgba(39,229,207,0.11),transparent_32%),radial-gradient(circle_at_45%_82%,rgba(107,200,255,0.09),transparent_34%)] opacity-70" />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <Card
-                        icon={<Users className="w-8 h-8 text-cyan-400" />}
-                        title="Jugendliche"
-                        description="Finde coole Taschengeldjobs in deiner Nähe. Besseres Taschengeld, erste Arbeitserfahrung und volle Flexibilität."
-                        points={["Sicher & legal dazuverdienen", "Jobs in deiner Nachbarschaft", "Schnelle Auszahlung"]}
-                    />
-                    <Card
-                        icon={<UserCheck className="w-8 h-8 text-purple-400" />}
-                        title="Eltern"
-                        description="Volle Transparenz und Sicherheit. Sie wissen immer, wo Ihr Kind arbeitet und dass die Rahmenbedingungen stimmen."
-                        points={["Jugendschutz garantiert", "Eltern-Dashboard zur Einsicht", "Verifizierte Auftraggeber"]}
-                    />
-                    <Card
-                        icon={<Shield className="w-8 h-8 text-emerald-400" />}
-                        title="Auftraggeber & Organisationen"
-                        description="Für Haushalte, Vereine, kleine Unternehmen und andere Organisationen, die verlässliche Unterstützung suchen."
-                        points={["Geprüfte Profile", "Rechtlich sicherer Rahmen", "Einfache Abwicklung", "Für privat & gewerblich"]}
-                    />
+                <div className="relative mx-auto w-full max-w-[86rem]">
+                    <div ref={contentRef}>
+                        <motion.h2
+                            variants={revealVariants}
+                            initial={reducedMotion ? false : "hidden"}
+                            animate={reducedMotion ? undefined : revealState}
+                            custom={0}
+                            className="text-[clamp(2.6rem,4.4vw,4.8rem)] font-semibold leading-none tracking-[-0.045em] text-white"
+                        >
+                            Für wen?
+                        </motion.h2>
+
+                        <motion.div
+                            initial={reducedMotion ? false : "hidden"}
+                            animate={reducedMotion ? undefined : revealState}
+                            variants={{
+                                hidden: {
+                                    opacity: reducedMotion ? 1 : 0,
+                                },
+                                show: {
+                                    opacity: 1,
+                                    transition: {
+                                        delayChildren: reducedMotion ? 0 : 0.12,
+                                        staggerChildren: reducedMotion ? 0 : 0.11,
+                                    },
+                                },
+                            }}
+                            className="mt-16 grid gap-x-24 gap-y-20 md:grid-cols-2 md:gap-y-24"
+                        >
+                            {audienceItems.map((item) => (
+                                <AudienceItem key={item.title} {...item} />
+                            ))}
+                        </motion.div>
+                    </div>
                 </div>
-            </motion.section>
+            </section>
 
             {/* --- Sektion: Sicherheit & Vertrauen --- */}
             <section id="sicherheit" className="py-24 border-t border-white/5 relative overflow-hidden">
@@ -163,26 +264,58 @@ export function FeatureSections() {
     );
 }
 
-function Card({ icon, title, description, points }: { icon: React.ReactNode, title: string, description: string, points: string[] }) {
+function AudienceItem({
+    title,
+    description,
+    Icon,
+    iconClassName,
+}: {
+    title: string;
+    description: string;
+    Icon: LucideIcon;
+    iconClassName: string;
+}) {
     return (
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm hover:bg-white/10 transition-colors group">
-            <div className="mb-6 p-4 rounded-2xl bg-black/40 w-fit border border-white/5 group-hover:scale-110 transition-transform">
-                {icon}
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
-            <p className="text-neutral-400 mb-6 leading-relaxed text-sm">
+        <motion.div
+            variants={{
+                hidden: { opacity: 0, y: 28 },
+                show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                        duration: 0.74,
+                        ease: [0.16, 1, 0.3, 1],
+                    },
+                },
+            }}
+        >
+            <motion.div
+                variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    show: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                            duration: 0.64,
+                            ease: [0.16, 1, 0.3, 1],
+                        },
+                    },
+                }}
+            >
+                <Icon
+                    aria-hidden="true"
+                    className={`mb-9 h-14 w-14 ${iconClassName}`}
+                    strokeWidth={1.85}
+                />
+            </motion.div>
+            <h3 className="max-w-[13ch] text-[clamp(2.1rem,3.4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-white">
+                {title}
+            </h3>
+            <p className="mt-6 max-w-[36rem] text-[1.05rem] leading-8 text-neutral-400 md:text-[1.15rem]">
                 {description}
             </p>
-            <ul className="space-y-2">
-                {points.map((p, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-neutral-300">
-                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                        {p}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
+        </motion.div>
+    );
 }
 
 function Step({ number, title, desc }: { number: string, title: string, desc: string }) {
