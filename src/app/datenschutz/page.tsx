@@ -270,11 +270,11 @@ export default function DatenschutzPage() {
                                     term: "E-Mail",
                                     description: (
                                         <a
-                                            href="mailto:rezan@jobbridge.team"
+                                            href="mailto:rezan.yalcin@jobbridge.team"
                                             className="inline-flex items-center gap-2 text-blue-200 transition hover:text-white"
                                         >
                                             <Mail className="h-4 w-4" />
-                                            rezan@jobbridge.team
+                                            rezan.yalcin@jobbridge.team
                                         </a>
                                     ),
                                 },

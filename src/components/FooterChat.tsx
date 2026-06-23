@@ -155,12 +155,12 @@ export function FooterChat() {
             aria-label="JobBridge Chat"
             className="border-t border-white/10 pt-8"
         >
-            <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-                <div className="max-w-2xl">
-                    <h2 className="text-base font-medium text-white">
+            <div className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-white/[0.025] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <div className="max-w-xl">
+                    <h2 className="text-[1.05rem] font-medium tracking-[-0.02em] text-white">
                         Fragen zu JobBridge?
                     </h2>
-                    <p className="mt-2 text-sm leading-6 text-neutral-500">
+                    <p className="mt-1.5 text-sm leading-6 text-neutral-400">
                         Öffnet den Microsoft Teams-Chat direkt auf dieser Seite.
                     </p>
                 </div>
@@ -169,7 +169,7 @@ export function FooterChat() {
                     type="button"
                     onClick={openChat}
                     disabled={isLoading}
-                    className="inline-flex h-11 w-fit items-center justify-center gap-2 rounded-lg border border-white/10 bg-white px-4 text-sm font-medium text-neutral-950 transition hover:bg-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:pointer-events-none disabled:opacity-70"
+                    className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white px-4 text-sm font-medium text-neutral-950 shadow-[0_14px_36px_rgba(255,255,255,0.08)] transition hover:bg-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:pointer-events-none disabled:opacity-70 sm:w-auto"
                 >
                     {isLoading ? (
                         <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
