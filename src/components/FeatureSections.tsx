@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Blocks, CheckCircle2, Fan, Flower2, Lock, Origami, type LucideIcon } from "lucide-react";
+import {
+    ArrowLeft,
+    ArrowRight,
+    ArrowUpRight,
+    Blocks,
+    Fan,
+    Flower2,
+    Origami,
+    type LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const audienceItems: Array<{
     title: string;
@@ -42,11 +51,60 @@ const audienceItems: Array<{
     },
 ];
 
+type SafetyGlyphName = "nodes" | "split" | "fold" | "spark";
+
+const safetySlides: Array<{
+    title: string;
+    description: string;
+    accent: string;
+    glyph: SafetyGlyphName;
+}> = [
+    {
+        title: "Moderierter Zugang",
+        description:
+            "JobBridge ist als digitale Taschengeldbörse für Jugendliche ab 14 gedacht: nicht offen, laut und beliebig, sondern geführt, transparent und mit klaren Rollen.",
+        accent: "bg-[radial-gradient(circle_at_50%_48%,#35ff6b_0%,#22e56b_45%,#18a88e_100%)]",
+        glyph: "nodes",
+    },
+    {
+        title: "Wenige Daten",
+        description:
+            "Sensible Informationen sollen nicht unnötig sichtbar werden. Erst wenn ein Job wirklich relevant wird, entstehen die nächsten Schritte.",
+        accent: "bg-[radial-gradient(circle_at_48%_46%,#fff68c_0%,#ecef74_52%,#b6bd71_100%)]",
+        glyph: "split",
+    },
+    {
+        title: "Eltern im Blick",
+        description:
+            "Eltern sollen nachvollziehen können, wo ihr Kind arbeitet und mit wem Kontakt entsteht, ohne jeden kleinen Schritt künstlich zu verkomplizieren.",
+        accent: "bg-[radial-gradient(circle_at_50%_48%,#ff6fae_0%,#ef61a4_48%,#a66ad2_100%)]",
+        glyph: "fold",
+    },
+    {
+        title: "Auffälliges prüfen",
+        description:
+            "Wenn Profile, Nachrichten oder Abläufe nicht plausibel wirken, soll das System nicht wegsehen. Auffällige Vorgänge werden markiert und überprüfbar.",
+        accent: "bg-[radial-gradient(circle_at_50%_50%,#24e9d2_0%,#16cbd8_48%,#238bbb_100%)]",
+        glyph: "spark",
+    },
+];
+
 export function FeatureSections() {
     const contentRef = useRef<HTMLDivElement | null>(null);
     const reducedMotion = useReducedMotion() ?? false;
     const [hasRevealed, setHasRevealed] = useState(false);
+    const [activeSafetyIndex, setActiveSafetyIndex] = useState(0);
     const revealState = reducedMotion || hasRevealed ? "show" : "hidden";
+    const activeSafety = safetySlides[activeSafetyIndex];
+    const activeSafetyNumber = String(activeSafetyIndex + 1).padStart(2, "0");
+
+    const showPreviousSafety = () => {
+        setActiveSafetyIndex((current) => (current === 0 ? safetySlides.length - 1 : current - 1));
+    };
+
+    const showNextSafety = () => {
+        setActiveSafetyIndex((current) => (current + 1) % safetySlides.length);
+    };
 
     useEffect(() => {
         if (reducedMotion) return;
@@ -150,68 +208,113 @@ export function FeatureSections() {
             </section>
 
             {/* --- Sektion: Sicherheit & Vertrauen --- */}
-            <section id="sicherheit" className="py-24 border-t border-white/5 relative overflow-hidden">
-                <div className="absolute inset-0 bg-cyan-900/5 pointer-events-none" />
-                <div className="container mx-auto grid items-start gap-16 px-5 md:grid-cols-2 md:px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm mb-6">
-                            <Lock className="w-4 h-4" /> Sicherheit zuerst
+            <section id="sicherheit" className="relative overflow-hidden border-t border-white/5 px-5 py-24 md:px-8 md:py-32">
+                <div className="relative mx-auto w-full max-w-[92rem]">
+                    <div className="mb-12 flex flex-col gap-8 md:mb-16 md:flex-row md:items-end md:justify-between">
+                        <div>
+                            <h2 className="max-w-[12ch] text-[clamp(3.1rem,6.2vw,7rem)] font-semibold leading-[0.96] tracking-[-0.058em] text-white">
+                                <span className="text-white/34">Wie </span>
+                                Sicherheit
+                                <span className="text-white/34"> entsteht</span>
+                            </h2>
+                            <p className="mt-6 max-w-[42rem] text-[1.05rem] leading-8 text-neutral-400 md:text-[1.2rem]">
+                                JobBridge übersetzt die Idee der Taschengeldbörse in eine digitale Plattform:
+                                moderiert, transparent und mit Schutz für sensible Situationen.
+                            </p>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                            Vertrauen ist gut, <br /> Sicherheit ist JobBridge.
-                        </h2>
-                        <p className="text-neutral-400 mb-6 leading-relaxed">
-                            Wir wissen, dass Taschengeldjobs ein sensibles Thema sind. Deshalb haben wir JobBridge
-                            um den Jugendschutz herum gebaut. Wir fragen nur Daten ab, die wirklich notwendig sind,
-                            und validieren Nutzer, bevor sie aktiv werden können.
-                        </p>
-                        <ul className="space-y-4 mb-8">
-                            {[
-                                "Verifizierung aller Auftraggeber via ID-Check",
-                                "Altersgerechte Jobangebote ohne schwere Arbeiten",
-                                "Eltern-Bestätigung für unter 16-Jährige",
-                                "Datensparsamkeit und deutsche Server"
-                            ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-neutral-300">
-                                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                                        <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                                    </div>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                        <Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 rounded-full" asChild>
-                            <Link href="/datenschutz">
-                                Datenschutzhinweise ansehen
+
+                        <Button
+                            className="w-fit rounded-2xl bg-white px-6 py-6 text-[1rem] font-semibold text-neutral-950 hover:bg-white/88"
+                            asChild
+                        >
+                            <Link href="/sicherheit">
+                                Mehr zur Sicherheit <ArrowUpRight className="ml-2 h-4 w-4" />
                             </Link>
                         </Button>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="grid gap-4 w-full"
-                    >
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm w-full">
-                            <h3 className="text-xl font-bold text-white mb-2">Klare Rollen</h3>
-                            <p className="text-neutral-400 text-sm">Jeder Nutzer hat eine definierte Rolle. Jugendliche können keine Jobs einstellen, Auftraggeber können nicht suchen. Das verhindert Missbrauch.</p>
+                    <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-white/[0.055] md:rounded-[2rem]">
+                        <div className="relative min-h-[34rem] p-7 md:min-h-[28rem] md:p-12 lg:grid lg:grid-cols-[0.94fr_1.06fr] lg:gap-10">
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.div
+                                    key={activeSafety.title}
+                                    initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+                                    animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                                    exit={reducedMotion ? undefined : { opacity: 0, y: -10 }}
+                                    transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
+                                    className="relative z-10 flex h-full flex-col"
+                                >
+                                    <p className="text-[4.4rem] font-semibold leading-none tracking-[-0.055em] text-white/18 md:text-[5.2rem]">
+                                        {activeSafetyNumber}
+                                    </p>
+                                    <div className="mt-auto max-w-[36rem] pt-20 md:pt-24 lg:pt-10">
+                                        <h3 className="text-[clamp(2rem,3.4vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-white">
+                                            {activeSafety.title}
+                                        </h3>
+                                        <p className="mt-6 text-[1.04rem] leading-8 text-neutral-400 md:text-[1.16rem]">
+                                            {activeSafety.description}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+
+                            <div className="pointer-events-none relative mt-12 min-h-[17rem] overflow-hidden rounded-[1.4rem] bg-[#191919] lg:mt-0 lg:min-h-0">
+                                <div
+                                    className="absolute inset-0 opacity-[0.58]"
+                                    style={{
+                                        backgroundImage:
+                                            "radial-gradient(circle, rgba(255,255,255,0.14) 1.8px, transparent 1.9px)",
+                                        backgroundSize: "24px 24px",
+                                    }}
+                                />
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.div
+                                        key={activeSafety.title}
+                                        initial={reducedMotion ? false : { opacity: 0, scale: 0.96, y: 14 }}
+                                        animate={reducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+                                        exit={reducedMotion ? undefined : { opacity: 0, scale: 0.98, y: -8 }}
+                                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                        className="absolute inset-0 flex items-center justify-center"
+                                    >
+                                        <SafetyGlyph name={activeSafety.glyph} accent={activeSafety.accent} />
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+
+                            <div className="absolute right-5 top-5 flex gap-2 md:right-7 md:top-7">
+                                {safetySlides.map((slide, index) => (
+                                    <button
+                                        key={slide.title}
+                                        type="button"
+                                        aria-label={`${slide.title} anzeigen`}
+                                        onClick={() => setActiveSafetyIndex(index)}
+                                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                                            index === activeSafetyIndex ? "w-7 bg-white" : "w-1.5 bg-white/18 hover:bg-white/38"
+                                        }`}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm w-full">
-                            <h3 className="text-xl font-bold text-white mb-2">Datenschutz</h3>
-                            <p className="text-neutral-400 text-sm">Deine Daten gehören dir. Wir verkaufen nichts weiter und zeigen Profilbilder/Namen erst nach bestätigtem Job-Match an.</p>
-                        </div>
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm w-full">
-                            <h3 className="text-xl font-bold text-white mb-2">Support & Mediation</h3>
-                            <p className="text-neutral-400 text-sm">Sollte mal etwas nicht klappen, steht unser Support bereit. Wir vermitteln fair zwischen Jugendlichen und Auftraggebern.</p>
-                        </div>
-                    </motion.div>
+                    </div>
+
+                    <div className="mt-8 flex justify-end gap-4">
+                        <button
+                            type="button"
+                            aria-label="Vorheriger Sicherheitsaspekt"
+                            onClick={showPreviousSafety}
+                            className="grid h-16 w-16 place-items-center rounded-full bg-white/10 text-white transition-colors duration-300 hover:bg-white/18"
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </button>
+                        <button
+                            type="button"
+                            aria-label="Nächster Sicherheitsaspekt"
+                            onClick={showNextSafety}
+                            className="grid h-16 w-16 place-items-center rounded-full bg-white/14 text-white transition-colors duration-300 hover:bg-white/24"
+                        >
+                            <ArrowRight className="h-5 w-5" />
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -315,6 +418,48 @@ function AudienceItem({
                 {description}
             </p>
         </motion.div>
+    );
+}
+
+function SafetyGlyph({ name, accent }: { name: SafetyGlyphName; accent: string }) {
+    return (
+        <div className={`relative aspect-square w-[13.5rem] overflow-hidden rounded-[2.75rem] ${accent} md:w-[18rem]`}>
+            <svg aria-hidden="true" viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
+                {name === "nodes" ? (
+                    <>
+                        <circle cx="28" cy="28" r="12.5" fill="#191919" />
+                        <circle cx="72" cy="28" r="12.5" fill="#191919" />
+                        <circle cx="28" cy="72" r="12.5" fill="#191919" />
+                        <circle cx="72" cy="72" r="12.5" fill="#191919" />
+                        <path
+                            d="M50 32 C46.8 43.4 43.4 46.8 32 50 C43.4 53.2 46.8 56.6 50 68 C53.2 56.6 56.6 53.2 68 50 C56.6 46.8 53.2 43.4 50 32 Z"
+                            fill="#191919"
+                        />
+                    </>
+                ) : null}
+
+                {name === "split" ? (
+                    <>
+                        <path d="M50 0 C48.6 25.8 28.4 47.2 0 50 L50 50 Z" fill="#191919" />
+                        <path d="M100 50 C71.6 52.8 51.4 74.2 50 100 L50 50 Z" fill="#191919" />
+                    </>
+                ) : null}
+
+                {name === "fold" ? (
+                    <>
+                        <path d="M50 0 C47.2 27.8 27.8 48.2 0 50 L100 50 C72.2 48.2 52.8 27.8 50 0 Z" fill="#191919" />
+                        <path d="M50 50 C47.2 72.2 27.8 96.5 0 100 L100 100 C72.2 96.5 52.8 72.2 50 50 Z" fill="#191919" />
+                    </>
+                ) : null}
+
+                {name === "spark" ? (
+                    <path
+                        d="M50 4 C45.8 33.8 33.8 45.8 4 50 C33.8 54.2 45.8 66.2 50 96 C54.2 66.2 66.2 54.2 96 50 C66.2 45.8 54.2 33.8 50 4 Z"
+                        fill="#191919"
+                    />
+                ) : null}
+            </svg>
+        </div>
     );
 }
 
