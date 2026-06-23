@@ -234,7 +234,31 @@ export function FeatureSections() {
                     </div>
 
                     <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-white/[0.055] md:rounded-[2rem]">
-                        <div className="relative min-h-[34rem] p-7 md:min-h-[28rem] md:p-12 lg:grid lg:grid-cols-[0.94fr_1.06fr] lg:gap-10">
+                        <div className="relative min-h-[23rem] p-6 md:min-h-[28rem] md:p-12 lg:grid lg:grid-cols-[0.94fr_1.06fr] lg:gap-10">
+                            <div className="absolute right-5 top-5 z-20 flex flex-col items-end gap-3 md:hidden">
+                                <div className="pointer-events-none">
+                                    <SafetyGlyph name={activeSafety.glyph} accent={activeSafety.accent} compact />
+                                </div>
+                                <div className="flex gap-2.5">
+                                    <button
+                                        type="button"
+                                        aria-label="Vorheriger Sicherheitsaspekt"
+                                        onClick={showPreviousSafety}
+                                        className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition-colors duration-300 hover:bg-white/18"
+                                    >
+                                        <ArrowLeft className="h-3.5 w-3.5" />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        aria-label="Nächster Sicherheitsaspekt"
+                                        onClick={showNextSafety}
+                                        className="grid h-10 w-10 place-items-center rounded-full bg-white/14 text-white transition-colors duration-300 hover:bg-white/24"
+                                    >
+                                        <ArrowRight className="h-3.5 w-3.5" />
+                                    </button>
+                                </div>
+                            </div>
+
                             <AnimatePresence mode="wait" initial={false}>
                                 <motion.div
                                     key={activeSafety.title}
@@ -242,23 +266,23 @@ export function FeatureSections() {
                                     animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
                                     exit={reducedMotion ? undefined : { opacity: 0, y: -10 }}
                                     transition={{ duration: 0.46, ease: [0.16, 1, 0.3, 1] }}
-                                    className="relative z-10 flex h-full flex-col"
+                                    className="relative z-10 flex min-h-[19rem] flex-col pr-20 md:min-h-0 md:pr-0"
                                 >
-                                    <p className="text-[4.4rem] font-semibold leading-none tracking-[-0.055em] text-white/18 md:text-[5.2rem]">
+                                    <p className="text-[3.45rem] font-semibold leading-none tracking-[-0.055em] text-white/18 md:text-[5.2rem]">
                                         {activeSafetyNumber}
                                     </p>
-                                    <div className="mt-auto max-w-[36rem] pt-20 md:pt-24 lg:pt-10">
-                                        <h3 className="text-[clamp(2rem,3.4vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-white">
+                                    <div className="mt-auto max-w-[36rem] pt-12 md:pt-24 lg:pt-10">
+                                        <h3 className="text-[clamp(1.9rem,3.4vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-white">
                                             {activeSafety.title}
                                         </h3>
-                                        <p className="mt-6 text-[1.04rem] leading-8 text-neutral-400 md:text-[1.16rem]">
+                                        <p className="mt-5 line-clamp-4 text-[1rem] leading-[1.65] text-neutral-400 md:mt-6 md:line-clamp-none md:text-[1.16rem] md:leading-8">
                                             {activeSafety.description}
                                         </p>
                                     </div>
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="pointer-events-none relative mt-12 min-h-[17rem] overflow-hidden rounded-[1.4rem] bg-[#191919] lg:mt-0 lg:min-h-0">
+                            <div className="pointer-events-none relative mt-12 hidden min-h-[17rem] overflow-hidden rounded-[1.4rem] bg-[#191919] lg:mt-0 lg:block lg:min-h-0">
                                 <div
                                     className="absolute inset-0 opacity-[0.58]"
                                     style={{
@@ -281,7 +305,7 @@ export function FeatureSections() {
                                 </AnimatePresence>
                             </div>
 
-                            <div className="absolute right-5 top-5 flex gap-2 md:right-7 md:top-7">
+                            <div className="absolute right-5 top-5 hidden gap-2 md:right-7 md:top-7 md:flex">
                                 {safetySlides.map((slide, index) => (
                                     <button
                                         key={slide.title}
@@ -294,10 +318,11 @@ export function FeatureSections() {
                                     />
                                 ))}
                             </div>
+
                         </div>
                     </div>
 
-                    <div className="mt-8 flex justify-end gap-4">
+                    <div className="mt-8 hidden justify-end gap-4 md:flex">
                         <button
                             type="button"
                             aria-label="Vorheriger Sicherheitsaspekt"
@@ -421,9 +446,15 @@ function AudienceItem({
     );
 }
 
-function SafetyGlyph({ name, accent }: { name: SafetyGlyphName; accent: string }) {
+function SafetyGlyph({ name, accent, compact = false }: { name: SafetyGlyphName; accent: string; compact?: boolean }) {
     return (
-        <div className={`relative aspect-square w-[13.5rem] overflow-hidden rounded-[2.75rem] ${accent} md:w-[18rem]`}>
+        <div
+            className={`relative aspect-square overflow-hidden ${accent} ${
+                compact
+                    ? "w-[4.75rem] rounded-[1.2rem] shadow-[0_16px_38px_rgba(0,0,0,0.18)]"
+                    : "w-[13.5rem] rounded-[2.75rem] md:w-[18rem]"
+            }`}
+        >
             <svg aria-hidden="true" viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
                 {name === "nodes" ? (
                     <>
