@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, type MouseEvent, type MutableRefObject, useEffect, useRef, useState } from "react";
+import { Fragment, memo, type MouseEvent, type MutableRefObject, useEffect, useRef, useState } from "react";
 import {
     animate,
     AnimatePresence,
@@ -203,7 +203,6 @@ type CardSlot = {
     scale: number;
     rotate: number;
     opacity: number;
-    blur: number;
     zIndex: number;
 };
 
@@ -300,70 +299,38 @@ const DESKTOP_CARD_SLOTS: CardSlot[] = [
         scale: 1,
         rotate: -1.6,
         opacity: 1,
-        blur: 0,
         zIndex: 40,
     },
     {
-        className: "left-[70%] top-[3%] w-[74%] max-w-[420px] -translate-x-1/2",
-        scale: 0.92,
-        rotate: 5.5,
-        opacity: 0.52,
-        blur: 0.6,
-        zIndex: 28,
-    },
-    {
-        className: "left-[39%] top-[46%] w-[74%] max-w-[420px] -translate-x-1/2",
-        scale: 0.86,
-        rotate: -6.5,
+        className: "left-[43%] top-[45%] w-[78%] max-w-[430px] -translate-x-1/2",
+        scale: 0.88,
+        rotate: -6.2,
         opacity: 0.34,
-        blur: 1,
-        zIndex: 20,
-    },
-    {
-        className: "left-[81%] top-[30%] w-[68%] max-w-[370px] -translate-x-1/2",
-        scale: 0.78,
-        rotate: 7.5,
-        opacity: 0.16,
-        blur: 1.6,
-        zIndex: 10,
-    },
-];
-
-const MOBILE_CARD_SLOTS: CardSlot[] = [
-    {
-        className: "left-1/2 top-[5%] w-[92%] max-w-[340px] -translate-x-1/2",
-        scale: 1,
-        rotate: -1.2,
-        opacity: 1,
-        blur: 0,
-        zIndex: 40,
-    },
-    {
-        className: "left-[59%] top-[1%] w-[84%] max-w-[308px] -translate-x-1/2",
-        scale: 0.9,
-        rotate: 5.2,
-        opacity: 0.24,
-        blur: 1,
         zIndex: 24,
     },
     {
-        className: "left-[43%] top-[28%] w-[82%] max-w-[296px] -translate-x-1/2",
-        scale: 0.82,
-        rotate: -5.8,
-        opacity: 0.14,
-        blur: 1.8,
-        zIndex: 14,
+        className: "left-[70%] top-[5%] w-[74%] max-w-[420px] -translate-x-1/2",
+        scale: 0.86,
+        rotate: 5.4,
+        opacity: 0.24,
+        zIndex: 16,
+    },
+    {
+        className: "left-[80%] top-[31%] w-[68%] max-w-[370px] -translate-x-1/2",
+        scale: 0.78,
+        rotate: 7.5,
+        opacity: 0.12,
+        zIndex: 8,
     },
 ];
 
-const HIDDEN_CARD_SLOT: CardSlot = {
-    className: "left-[84%] top-[34%] w-[70%] max-w-[320px] -translate-x-1/2",
-    scale: 0.74,
-    rotate: 8,
-    opacity: 0,
-    blur: 2,
-    zIndex: 0,
-};
+const HERO_CARD_INTERVAL_MS = 3600;
+const CARD_STAGE_TRANSITION = {
+    type: "spring",
+    stiffness: 132,
+    damping: 27,
+    mass: 0.82,
+} as const;
 
 const CARD_TONE_STYLES: Record<CardTone, string> = {
     amber: "border-amber-400/24 bg-amber-400/[0.08] text-amber-200/95",
@@ -395,22 +362,6 @@ function useIsDesktop(): boolean {
     }, []);
 
     return isDesktop;
-}
-
-function useIsWideCardScene(): boolean {
-    const [isWide, setIsWide] = useState(false);
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(min-width: 768px)");
-        const update = () => setIsWide(mediaQuery.matches);
-
-        update();
-        mediaQuery.addEventListener("change", update);
-
-        return () => mediaQuery.removeEventListener("change", update);
-    }, []);
-
-    return isWide;
 }
 
 function useTypewriter(text: string, startDelay: number, reducedMotion: boolean) {
@@ -590,11 +541,7 @@ function AuroraCanvas({ scrollRef }: { scrollRef: ScrollRef }) {
     return <div ref={hostRef} aria-hidden className="pointer-events-none absolute inset-0 z-0" />;
 }
 
-function getCardOrder(index: number, activeIndex: number, total: number) {
-    return (index - activeIndex + total) % total;
-}
-
-function JobCard({
+const JobCard = memo(function JobCard({
     card,
     focused,
 }: {
@@ -605,11 +552,11 @@ function JobCard({
     const chipStyle = CARD_TONE_STYLES[card.tone];
 
     return (
-        <div
-            className={`relative overflow-hidden rounded-[30px] ${
-                focused
-                    ? "border border-white/14 bg-[linear-gradient(180deg,rgba(24,35,62,0.96),rgba(14,22,40,0.92))] backdrop-blur-[18px] shadow-[0_38px_120px_rgba(2,6,23,0.52)]"
-                    : "border border-white/8 bg-[linear-gradient(180deg,rgba(18,28,50,0.68),rgba(14,21,38,0.56))] backdrop-blur-[8px] shadow-[0_18px_72px_rgba(2,6,23,0.34)]"
+            <div
+                className={`relative overflow-hidden rounded-[30px] ${
+                    focused
+                    ? "border border-white/14 bg-[linear-gradient(180deg,rgba(24,35,62,0.96),rgba(14,22,40,0.92))] backdrop-blur-[14px] shadow-[0_38px_120px_rgba(2,6,23,0.52)]"
+                    : "border border-white/8 bg-[linear-gradient(180deg,rgba(18,28,50,0.72),rgba(14,21,38,0.6))] shadow-[0_18px_72px_rgba(2,6,23,0.32)]"
             }`}
         >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_0%,rgba(255,255,255,0.055),transparent_42%)]" />
@@ -660,7 +607,7 @@ function JobCard({
             </div>
         </div>
     );
-}
+});
 
 function HeroVisual({
     reducedMotion,
@@ -669,26 +616,58 @@ function HeroVisual({
     reducedMotion: boolean;
     visualY: MotionValue<number>;
 }) {
-    const isWideCardScene = useIsWideCardScene();
+    const sceneRef = useRef<HTMLDivElement | null>(null);
+    const [isSceneVisible, setIsSceneVisible] = useState(true);
     const [activeIndex, setActiveIndex] = useState(0);
-    const slots = isWideCardScene ? DESKTOP_CARD_SLOTS : MOBILE_CARD_SLOTS;
 
     useEffect(() => {
-        if (reducedMotion) return;
+        const scene = sceneRef.current;
+        if (!scene) return;
 
-        const intervalId = window.setInterval(() => {
-            setActiveIndex((current) => (current + 1) % HERO_CARDS.length);
-        }, 4200);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsSceneVisible(entry.isIntersecting);
+            },
+            {
+                rootMargin: "120px 0px",
+                threshold: 0.18,
+            }
+        );
 
-        return () => window.clearInterval(intervalId);
-    }, [reducedMotion]);
+        observer.observe(scene);
+
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (reducedMotion || !isSceneVisible) return;
+
+        let timeoutId = 0;
+
+        const scheduleNextCard = () => {
+            timeoutId = window.setTimeout(() => {
+                if (document.visibilityState === "visible") {
+                    setActiveIndex((current) => (current + 1) % HERO_CARDS.length);
+                }
+
+                scheduleNextCard();
+            }, HERO_CARD_INTERVAL_MS);
+        };
+
+        scheduleNextCard();
+
+        return () => window.clearTimeout(timeoutId);
+    }, [isSceneVisible, reducedMotion]);
 
     return (
         <motion.div
+            ref={sceneRef}
+            data-hero-visual
             style={{ y: visualY }}
-            className="relative col-span-12 mt-8 flex min-h-[320px] items-start justify-center sm:mt-10 sm:min-h-[380px] lg:-ml-8 lg:col-span-5 lg:mt-0 lg:min-h-0 lg:items-center xl:-ml-12"
-            initial={reducedMotion ? false : { opacity: 0, x: 36, scale: 0.97, filter: "blur(24px)" }}
-            animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
+            aria-hidden="true"
+            className="relative -ml-8 col-span-5 mt-0 hidden min-h-0 items-center justify-center lg:flex xl:-ml-12"
+            initial={reducedMotion ? false : { opacity: 0, x: 36, scale: 0.97 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 1.1, delay: 0.5, ease: EASE }}
         >
             <div
@@ -704,61 +683,68 @@ function HeroVisual({
             <div className="relative h-[320px] w-full max-w-[380px] sm:h-[390px] sm:max-w-[440px] lg:h-[560px] lg:max-w-[620px]">
                 <div className="pointer-events-none absolute inset-[8%_10%_14%_14%] rounded-[120px] bg-[radial-gradient(circle_at_50%_40%,rgba(96,165,250,0.14),transparent_58%)] blur-3xl" />
 
-                {HERO_CARDS.map((card, index) => {
-                    const order = getCardOrder(index, activeIndex, HERO_CARDS.length);
-                    const slot = slots[order] ?? HIDDEN_CARD_SLOT;
-                    const isFocused = order === 0;
-                    const targetOpacity = isFocused ? 1 : slot.opacity;
+                <AnimatePresence initial={false}>
+                    {DESKTOP_CARD_SLOTS.map((slot, order) => {
+                        const card = HERO_CARDS[(activeIndex + order) % HERO_CARDS.length];
+                        const isFocused = order === 0;
 
-                    return (
-                        <motion.div
-                            key={card.id}
-                            layout
-                            className={`absolute ${slot.className}`}
-                            style={{ zIndex: slot.zIndex }}
-                            initial={
-                                reducedMotion
-                                    ? false
-                                    : { opacity: 0, y: 36, scale: 0.92, filter: "blur(16px)" }
-                            }
-                            animate={{
-                                opacity: targetOpacity,
-                                scale: slot.scale,
-                                rotate: slot.rotate,
-                                filter: `blur(${slot.blur}px)`,
-                                y: 0,
-                            }}
-                            transition={{
-                                layout: {
-                                    type: "spring",
-                                    stiffness: 108,
-                                    damping: 24,
-                                    mass: 0.9,
-                                },
-                                opacity: { duration: 0.55, ease: EASE },
-                                scale: { duration: 0.78, ease: EASE },
-                                rotate: { duration: 0.78, ease: EASE },
-                                filter: { duration: 0.78, ease: EASE },
-                                y: { duration: 0.78, ease: EASE },
-                            }}
-                        >
+                        return (
                             <motion.div
-                                animate={reducedMotion ? { y: 0 } : isFocused ? { y: [0, -10, 0] } : { y: [0, 4, 0] }}
-                                transition={
+                                key={card.id}
+                                data-hero-card
+                                data-focused={isFocused ? "true" : "false"}
+                                layout="position"
+                                className={`absolute transform-gpu will-change-transform ${slot.className}`}
+                                style={{ zIndex: slot.zIndex }}
+                                initial={
                                     reducedMotion
-                                        ? { duration: 0 }
+                                        ? false
+                                        : { opacity: 0, y: 42, scale: 0.82, rotate: slot.rotate - 4 }
+                                }
+                                animate={{
+                                    opacity: slot.opacity,
+                                    scale: slot.scale,
+                                    rotate: slot.rotate,
+                                    y: 0,
+                                }}
+                                exit={
+                                    reducedMotion
+                                        ? { opacity: 0 }
                                         : {
-                                              duration: isFocused ? 6.8 : 8.6,
-                                              repeat: Number.POSITIVE_INFINITY,
-                                              ease: "easeInOut",
+                                              opacity: 0,
+                                              scale: 0.82,
+                                              y: -46,
+                                              rotate: slot.rotate - 4,
+                                              transition: { duration: 0.34, ease: EASE },
                                           }
                                 }
+                                transition={{
+                                    layout: CARD_STAGE_TRANSITION,
+                                    opacity: { duration: 0.38, ease: EASE },
+                                    scale: CARD_STAGE_TRANSITION,
+                                    rotate: CARD_STAGE_TRANSITION,
+                                    y: CARD_STAGE_TRANSITION,
+                                }}
                             >
-                                <JobCard card={card} focused={isFocused} />
+                                <motion.div
+                                    className="transform-gpu"
+                                    animate={reducedMotion || !isFocused ? { y: 0 } : { y: [0, -7, 0] }}
+                                    transition={
+                                        reducedMotion || !isFocused
+                                            ? { duration: 0.28, ease: EASE }
+                                            : {
+                                                  duration: 7.2,
+                                                  repeat: Number.POSITIVE_INFINITY,
+                                                  ease: "easeInOut",
+                                              }
+                                    }
+                                >
+                                    <JobCard card={card} focused={isFocused} />
+                                </motion.div>
                             </motion.div>
-                        </motion.div>
-                    );
-                })}
+                        );
+                    })}
+                </AnimatePresence>
             </div>
         </motion.div>
     );
@@ -919,7 +905,7 @@ function HeroMenuOverlay({
                         type="button"
                         onClick={onClose}
                         aria-label="Menü schließen"
-                        className="group absolute left-6 top-6 z-20 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 sm:top-10"
+                        className="group absolute right-6 top-6 z-20 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-10 sm:top-10"
                     >
                         <motion.span
                             className="flex"
@@ -1038,7 +1024,7 @@ function Hero() {
                 onClose={() => setMenuOpen(false)}
             />
 
-            <div className="relative z-10 grid grid-cols-12 gap-6 px-6 pb-10 pt-6 sm:pb-12 md:px-8 md:pb-10 md:pt-8 lg:h-full lg:gap-0 xl:px-10">
+            <div className="relative z-10 grid min-h-[calc(100svh-2rem)] grid-cols-12 grid-rows-[auto_minmax(0,1fr)] gap-0 px-6 pb-5 pt-6 sm:pb-8 md:px-8 md:pb-10 md:pt-8 lg:h-full lg:min-h-0 lg:grid-rows-none lg:gap-0 xl:px-10">
                 <motion.div
                     className="col-span-12 flex h-16 items-center justify-between"
                     initial={reducedMotion ? false : { opacity: 0, y: -12 }}
@@ -1050,7 +1036,7 @@ function Hero() {
                         aria-label="JobBridge Startseite"
                         className="group flex min-w-0 items-center gap-3 rounded-[1.45rem] py-1 pr-3 outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-200/70"
                     >
-                        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[1.25rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035))] shadow-[0_14px_42px_rgba(2,6,23,0.42)] transition group-hover:border-cyan-100/28 group-hover:bg-white/[0.075]">
+                        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-[1.15rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035))] shadow-[0_12px_34px_rgba(2,6,23,0.38)] transition group-hover:border-cyan-100/28 group-hover:bg-white/[0.075]">
                             <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_34%_22%,rgba(125,211,252,0.2),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_52%)]" />
                             <Image
                                 src="/favicon.ico"
@@ -1059,7 +1045,7 @@ function Hero() {
                                 height={48}
                                 unoptimized
                                 priority
-                                className="relative h-12 w-12 max-w-none scale-[1.12] object-contain object-center drop-shadow-[0_4px_14px_rgba(56,189,248,0.22)]"
+                                className="relative h-11 w-11 max-w-none scale-[1.08] object-contain object-center drop-shadow-[0_4px_14px_rgba(56,189,248,0.2)]"
                             />
                         </span>
                         <span className="min-w-0">
@@ -1092,7 +1078,7 @@ function Hero() {
 
                 <motion.div
                     style={{ y: contentY, opacity: contentOpacity }}
-                    className="col-span-12 flex flex-col justify-start pt-4 lg:col-span-7 lg:justify-center lg:pb-6 lg:pr-10 lg:pt-0 xl:pr-14"
+                    className="col-span-12 row-start-2 flex min-h-0 flex-col justify-between pb-[max(1rem,env(safe-area-inset-bottom))] pt-[clamp(2.25rem,7svh,4.5rem)] sm:pt-12 lg:row-auto lg:col-span-7 lg:justify-center lg:pb-6 lg:pr-10 lg:pt-0 xl:pr-14"
                 >
                     <motion.div
                         className="max-w-[760px]"
@@ -1197,33 +1183,34 @@ function Hero() {
                         >
                             JobBridge bringt Jugendliche, Eltern und Auftraggeber in Deutschland auf eine Plattform, die Schutz nicht als Nachtrag behandelt. Verifizierte Auftraggeber, moderierte Kommunikation und klare Freigaben machen den Einstieg besser.
                         </motion.p>
+                    </motion.div>
 
-                        <motion.div
-                            className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center"
-                            initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.82, delay: 1.58, ease: EASE }}
+                    <motion.div
+                        data-hero-ctas
+                        className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center lg:mt-9"
+                        initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.82, delay: 1.58, ease: EASE }}
+                    >
+                        <a
+                            href="https://app.jobbridge.app"
+                            className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-[0.9rem] font-medium text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-[0_18px_48px_rgba(147,197,253,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
                         >
-                            <a
-                                href="https://app.jobbridge.app"
-                                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-[0.9rem] font-medium text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-[0_18px_48px_rgba(147,197,253,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
-                            >
-                                Zur Plattform
-                            </a>
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    scrollToHowItWorksStage(reducedMotion);
-                                }}
-                                className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-7 py-4 text-[0.9rem] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300/28 hover:bg-blue-400/[0.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
-                            >
-                                So funktioniert&apos;s
-                            </button>
-                        </motion.div>
+                            Zur Plattform
+                        </a>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                scrollToHowItWorksStage(reducedMotion);
+                            }}
+                            className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-7 py-4 text-[0.9rem] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300/28 hover:bg-blue-400/[0.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                        >
+                            So funktioniert&apos;s
+                        </button>
                     </motion.div>
                 </motion.div>
 
-                <HeroVisual reducedMotion={reducedMotion} visualY={visualY} />
+                {isDesktop ? <HeroVisual reducedMotion={reducedMotion} visualY={visualY} /> : null}
             </div>
         </section>
     );
