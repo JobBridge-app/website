@@ -1,9 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, type MutableRefObject, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Fragment, type MouseEvent, type MutableRefObject, useEffect, useRef, useState } from "react";
 import {
     animate,
+    AnimatePresence,
     motion,
     type MotionValue,
     useMotionValueEvent,
@@ -15,19 +18,37 @@ import {
     CalendarDays,
     Coins,
     Leaf,
+    Menu,
     MapPin,
     PawPrint,
     ShoppingBag,
     Smartphone,
     Wrench,
+    X,
 } from "lucide-react";
 
 const HEADLINE_PRIMARY_LINE = "Dein erster Job.";
 const HEADLINE_TYPED_LINE = "Aber sicher.";
 const HEADLINE_TYPED_CHARACTERS = Array.from(HEADLINE_TYPED_LINE);
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const MENU_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const MOBILE_NOISE_URL =
     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23noise)' opacity='0.09'/%3E%3C/svg%3E\")";
+
+const HERO_MENU_ITEMS = [
+    { label: "Startseite", href: "/" },
+    { label: "Sicherheit", href: "/sicherheit" },
+    { label: "Demnächst", href: "/demnaechst" },
+    { label: "Blog", href: "/blog" },
+    { label: "Kontakt", href: "/kontakt" },
+];
+
+const HERO_MENU_META_LINKS = [
+    { label: "Plattform", href: "https://app.jobbridge.app" },
+    { label: "Impressum", href: "/impressum" },
+    { label: "Datenschutz", href: "/datenschutz" },
+    { label: "E-Mail", href: "mailto:rezan@jobbridge.app" },
+];
 
 function scrollToHowItWorksStage(reducedMotion: boolean) {
     const section = document.getElementById("how-it-works");
@@ -671,7 +692,7 @@ function HeroVisual({
             transition={{ duration: 1.1, delay: 0.5, ease: EASE }}
         >
             <div
-                className="absolute -inset-x-24 -inset-y-24 bg-[radial-gradient(circle_at_54%_26%,rgba(96,165,250,0.18),transparent_34%),radial-gradient(circle_at_82%_68%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_14%_82%,rgba(125,211,252,0.08),transparent_24%)] blur-[24px]"
+                className="pointer-events-none absolute -inset-x-24 -inset-y-24 bg-[radial-gradient(circle_at_54%_26%,rgba(96,165,250,0.18),transparent_34%),radial-gradient(circle_at_82%_68%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_14%_82%,rgba(125,211,252,0.08),transparent_24%)] blur-[24px]"
                 style={{
                     maskImage:
                         "radial-gradient(ellipse 72% 68% at 58% 50%, black 46%, transparent 100%)",
@@ -743,9 +764,234 @@ function HeroVisual({
     );
 }
 
+function handleHeroMenuNavigation(
+    event: MouseEvent<HTMLAnchorElement>,
+    item: (typeof HERO_MENU_ITEMS)[number],
+    isCurrent: boolean,
+    reducedMotion: boolean,
+    closeMenu: () => void
+) {
+    const { href } = item;
+
+    if (isCurrent) {
+        event.preventDefault();
+        closeMenu();
+        return;
+    }
+
+    if (!href.startsWith("#")) {
+        closeMenu();
+        return;
+    }
+
+    event.preventDefault();
+    closeMenu();
+
+    if (href === "#how-it-works") {
+        scrollToHowItWorksStage(reducedMotion);
+        return;
+    }
+
+    document.querySelector<HTMLElement>(href)?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+    });
+}
+
+function MenuWord({ label, active }: { label: string; active: boolean }) {
+    return (
+        <span className="relative block h-[1em] overflow-hidden pb-[0.055em]">
+            <motion.span
+                className="block will-change-transform"
+                animate={{ y: active ? "-100%" : "0%" }}
+                transition={{ duration: 0.72, ease: MENU_EASE }}
+            >
+                {label}
+            </motion.span>
+            <motion.span
+                aria-hidden
+                className="absolute inset-x-0 top-full block text-white will-change-transform"
+                animate={{ y: active ? "-100%" : "0%" }}
+                transition={{ duration: 0.72, ease: MENU_EASE }}
+            >
+                {label}
+            </motion.span>
+        </span>
+    );
+}
+
+function HeroMenuItem({
+    item,
+    index,
+    isCurrent,
+    reducedMotion,
+    onClose,
+}: {
+    item: (typeof HERO_MENU_ITEMS)[number];
+    index: number;
+    isCurrent: boolean;
+    reducedMotion: boolean;
+    onClose: () => void;
+}) {
+    const [active, setActive] = useState(false);
+
+    return (
+        <motion.a
+            href={item.href}
+            aria-label={item.label}
+            aria-current={isCurrent ? "page" : undefined}
+            onClick={(event) =>
+                handleHeroMenuNavigation(event, item, isCurrent, reducedMotion, onClose)
+            }
+            onHoverStart={() => setActive(!isCurrent)}
+            onHoverEnd={() => setActive(false)}
+            onFocus={() => setActive(!isCurrent)}
+            onBlur={() => setActive(false)}
+            className={`hero-menu-link ${
+                isCurrent
+                    ? "text-white/34"
+                    : "text-white/96 hover:text-white focus-visible:text-white"
+            }`}
+            style={{
+                fontFamily: "var(--font-sans), ui-sans-serif, system-ui, sans-serif",
+            }}
+            initial={reducedMotion ? false : { opacity: 0, y: 34 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+                duration: 0.78,
+                delay: 0.18 + index * 0.055,
+                ease: EASE,
+            }}
+        >
+            <MenuWord label={item.label} active={active} />
+        </motion.a>
+    );
+}
+
+function HeroMenuOverlay({
+    open,
+    pathname,
+    reducedMotion,
+    onClose,
+}: {
+    open: boolean;
+    pathname: string;
+    reducedMotion: boolean;
+    onClose: () => void;
+}) {
+    useEffect(() => {
+        if (!open) return;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                onClose();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [onClose, open]);
+
+    return (
+        <AnimatePresence>
+            {open ? (
+                <motion.div
+                    className="fixed inset-0 z-[120] overflow-hidden bg-[#050505] text-white"
+                    initial={reducedMotion ? false : { y: "-100%" }}
+                    animate={{ y: 0 }}
+                    exit={reducedMotion ? { opacity: 0 } : { y: "-100%" }}
+                    transition={{ duration: 0.72, ease: EASE }}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Navigation"
+                >
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_58%_32%,rgba(59,130,246,0.11),transparent_34%),radial-gradient(circle_at_22%_86%,rgba(14,165,233,0.08),transparent_26%)]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),transparent_28%,rgba(255,255,255,0.018))]" />
+
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="Menü schließen"
+                        className="group absolute left-6 top-6 z-20 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 sm:top-10"
+                    >
+                        <motion.span
+                            className="flex"
+                            whileHover={reducedMotion ? undefined : { rotate: 90, scale: 1.05 }}
+                            transition={{ duration: 0.35, ease: EASE }}
+                        >
+                            <X className="h-8 w-8 stroke-[1.45]" aria-hidden="true" />
+                        </motion.span>
+                    </button>
+
+                    <nav
+                        aria-label="Overlay Navigation"
+                        className="hero-menu-nav"
+                    >
+                        <div className="hero-menu-items">
+                            {HERO_MENU_ITEMS.map((item, index) => (
+                                <HeroMenuItem
+                                    key={item.label}
+                                    item={item}
+                                    index={index}
+                                    isCurrent={item.href === pathname}
+                                    reducedMotion={reducedMotion}
+                                    onClose={onClose}
+                                />
+                            ))}
+                        </div>
+                    </nav>
+
+                    <div data-hero-menu-meta className="hero-menu-meta">
+                        <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-[0.8rem] font-medium text-white/44 sm:gap-x-10 sm:text-sm">
+                            {HERO_MENU_META_LINKS.map((item) =>
+                                item.href.startsWith("/") ? (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        onClick={onClose}
+                                        className="transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ) : (
+                                    <a
+                                        key={item.label}
+                                        href={item.href}
+                                        onClick={onClose}
+                                        className="transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                                    >
+                                        {item.label}
+                                    </a>
+                                )
+                            )}
+                        </div>
+                    </div>
+
+                    <div
+                        data-hero-menu-wordmark
+                        aria-hidden
+                        className="hero-menu-wordmark"
+                    >
+                        JobBridge
+                    </div>
+                </motion.div>
+            ) : null}
+        </AnimatePresence>
+    );
+}
+
 function Hero() {
     const heroRef = useRef<HTMLElement | null>(null);
     const scrollRef = useRef(0);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const pathname = usePathname() ?? "/";
     const reducedMotion = useReducedMotion() ?? false;
     const isDesktop = useIsDesktop();
     const showCanvas = isDesktop && !reducedMotion;
@@ -785,6 +1031,13 @@ function Hero() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:120px_120px] opacity-[0.08]" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#02040b] to-transparent" />
 
+            <HeroMenuOverlay
+                open={menuOpen}
+                pathname={pathname}
+                reducedMotion={reducedMotion}
+                onClose={() => setMenuOpen(false)}
+            />
+
             <div className="relative z-10 grid grid-cols-12 gap-6 px-6 pb-10 pt-6 sm:pb-12 md:px-8 md:pb-10 md:pt-8 lg:h-full lg:gap-0 xl:px-10">
                 <motion.div
                     className="col-span-12 flex h-16 items-center justify-between"
@@ -792,30 +1045,49 @@ function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.72, delay: 0.04, ease: EASE }}
                 >
-                    <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_10px_35px_rgba(2,6,23,0.35)]">
+                    <Link
+                        href="/"
+                        aria-label="JobBridge Startseite"
+                        className="group flex min-w-0 items-center gap-3 rounded-[1.45rem] py-1 pr-3 outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-200/70"
+                    >
+                        <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[1.25rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035))] shadow-[0_14px_42px_rgba(2,6,23,0.42)] transition group-hover:border-cyan-100/28 group-hover:bg-white/[0.075]">
+                            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_34%_22%,rgba(125,211,252,0.2),transparent_44%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_52%)]" />
                             <Image
                                 src="/favicon.ico"
                                 alt=""
-                                width={30}
-                                height={30}
+                                width={48}
+                                height={48}
                                 unoptimized
                                 priority
-                                className="h-[30px] w-[30px] scale-[1.28] object-cover"
+                                className="relative h-12 w-12 max-w-none scale-[1.12] object-contain object-center drop-shadow-[0_4px_14px_rgba(56,189,248,0.22)]"
                             />
-                        </div>
-                        <span className="text-[1rem] font-medium tracking-[0.01em] text-white">
-                            JobBridge
                         </span>
+                        <span className="min-w-0">
+                            <span className="block truncate text-[1.04rem] font-semibold tracking-normal text-white">
+                                JobBridge
+                            </span>
+                        </span>
+                    </Link>
+
+                    <div className="flex items-center">
+                        <motion.button
+                            type="button"
+                            onClick={() => setMenuOpen(true)}
+                            aria-label="Menü öffnen"
+                            aria-expanded={menuOpen}
+                            className="group flex h-11 w-11 items-center justify-center rounded-[1.15rem] border border-white/10 bg-white/[0.045] text-white shadow-[0_10px_35px_rgba(2,6,23,0.24)] backdrop-blur-xl transition hover:border-white/18 hover:bg-white/[0.075] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200/70"
+                            whileHover={reducedMotion ? undefined : { y: -1 }}
+                            whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+                        >
+                            <motion.span
+                                className="flex"
+                                whileHover={reducedMotion ? undefined : { rotate: 90 }}
+                                transition={{ duration: 0.35, ease: EASE }}
+                            >
+                                <Menu className="h-[1.125rem] w-[1.125rem] stroke-[1.8]" aria-hidden="true" />
+                            </motion.span>
+                        </motion.button>
                     </div>
-                    <span
-                        className="text-right text-[0.95rem] tracking-[0.01em] text-slate-200/82 md:text-[1.05rem]"
-                        style={{
-                            fontFamily: "var(--font-serif), ui-serif, Georgia, serif",
-                        }}
-                    >
-                        Die digitale Taschengeldbörse
-                    </span>
                 </motion.div>
 
                 <motion.div
