@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     },
 };
 
-const profileImageSrc = "/insights/rezan-yalcin-profile-jugend-forscht.jpg";
+const profileImageSrc = "/insights/wdr-studiogespraech-rezan-yalcin-clean.png";
 
 export default function RezanYalcinProfilePage() {
     if (!member) {

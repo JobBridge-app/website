@@ -12,17 +12,20 @@ const visibleInsights = allInsights.slice(0, 6);
 const hasSingleTeamMember = teamMembers.length === 1;
 const teamMemberPlaceholders = [
     {
-        slot: "01",
+        align: "left",
+        role: "Teammitglied",
         title: "Profil folgt",
         description: "Dieses Teamprofil wird ergänzt, sobald die Person öffentlich vorgestellt wird.",
     },
     {
-        slot: "02",
+        align: "right",
+        role: "Teammitglied",
         title: "Profil folgt",
         description: "Weitere Informationen zu Aufgaben und Verantwortungsbereich folgen.",
     },
     {
-        slot: "03",
+        align: "left",
+        role: "Teammitglied",
         title: "Profil folgt",
         description: "Das Profil wird vorbereitet und später in diesem Bereich veröffentlicht.",
     },
@@ -30,7 +33,7 @@ const teamMemberPlaceholders = [
 
 function TeamPreview() {
     return (
-        <section id="team" className="border-t border-white/10 pb-24 pt-12 sm:pb-28 sm:pt-14">
+        <section id="team" className="pb-24 pt-8 sm:pb-28 sm:pt-10">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <h2 className="text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl">
@@ -47,15 +50,15 @@ function TeamPreview() {
                     <Link
                         key={member.slug}
                         href={member.profilePath}
-                        className={`group overflow-hidden rounded-[1.2rem] border border-white/[0.09] bg-white/[0.032] outline-none ring-0 transition duration-300 hover:border-white/[0.16] hover:bg-white/[0.052] focus-visible:ring-2 focus-visible:ring-white/70 ${
+                        className={`group overflow-hidden rounded-[1.22rem] border border-white/10 bg-[#070a10] p-3 shadow-[0_24px_72px_rgba(0,0,0,0.2)] outline-none ring-0 transition duration-500 hover:border-white/18 hover:bg-[#090d15] focus-visible:ring-2 focus-visible:ring-white/70 ${
                             hasSingleTeamMember
-                                ? "grid md:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)]"
+                                ? "grid md:grid-cols-[minmax(14rem,18rem)_minmax(0,1fr)] md:gap-3"
                                 : "flex min-h-full flex-col"
                         }`}
                     >
                         <span
-                            className={`relative block overflow-hidden bg-[#050912] ${
-                                hasSingleTeamMember ? "aspect-[16/9] md:aspect-auto md:min-h-[18rem]" : "aspect-[4/3]"
+                            className={`relative block overflow-hidden rounded-[1rem] border border-white/[0.075] bg-[#050912] ${
+                                hasSingleTeamMember ? "aspect-[16/9] md:aspect-auto md:min-h-[19rem]" : "aspect-[4/3]"
                             }`}
                         >
                             {member.profileImage ? (
@@ -65,7 +68,7 @@ function TeamPreview() {
                                     fill
                                     sizes={
                                         hasSingleTeamMember
-                                            ? "(min-width: 768px) 16rem, 100vw"
+                                            ? "(min-width: 768px) 18rem, 100vw"
                                             : "(min-width: 1024px) 42vw, 100vw"
                                     }
                                     className="object-cover transition duration-700 group-hover:scale-[1.025]"
@@ -76,12 +79,12 @@ function TeamPreview() {
                                     {member.shortName.slice(0, 1)}
                                 </span>
                             )}
-                            <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(2,4,11,0.42))]" />
+                            <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_52%,rgba(2,4,11,0.32))]" />
                         </span>
 
-                        <span className="flex min-h-[18rem] flex-col justify-between p-5 sm:p-6 lg:p-7">
+                        <span className="flex min-h-[19rem] flex-col justify-between px-2 pb-3 pt-5 sm:px-3 sm:pb-4 md:p-6 lg:p-7">
                             <span>
-                                <span className="text-sm font-semibold tracking-[-0.02em] text-slate-500">
+                                <span className="text-sm font-semibold tracking-[-0.02em] text-slate-400">
                                     {member.role}
                                 </span>
                                 <span className="mt-3 block text-[2rem] font-semibold leading-[0.96] tracking-[-0.058em] text-white sm:text-[2.35rem]">
@@ -93,8 +96,8 @@ function TeamPreview() {
                             </span>
 
                             <span className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.07] pt-5">
-                                <span className="text-sm font-medium text-slate-500">{member.location}</span>
-                                <span className="inline-flex items-center gap-2 text-sm font-semibold text-blue-100/82 transition group-hover:text-white">
+                                <span className="text-sm font-medium text-slate-400">{member.location}</span>
+                                <span className="inline-flex items-center gap-2 text-sm font-semibold text-white/74 transition group-hover:text-white">
                                     Profil öffnen
                                     <ArrowUpRight
                                         className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -107,33 +110,52 @@ function TeamPreview() {
                 ))}
             </div>
 
-            <div className="mt-5 grid gap-4 md:grid-cols-3" aria-label="Weitere Teammitglieder">
+            <div className="mt-5 grid gap-4" aria-label="Weitere Teammitglieder">
                 {teamMemberPlaceholders.map((member) => (
                     <article
-                        key={member.slot}
-                        className="flex min-h-[13.5rem] flex-col justify-between rounded-[1rem] border border-white/[0.08] bg-white/[0.024] p-5 sm:p-6"
+                        key={`${member.align}-${member.description}`}
+                        className={`overflow-hidden rounded-[1.22rem] border border-white/10 bg-[#070a10] p-3 shadow-[0_24px_72px_rgba(0,0,0,0.2)] ${
+                            member.align === "right" ? "md:justify-self-end" : "md:justify-self-start"
+                        } md:w-[min(100%,58rem)]`}
                     >
-                        <div>
-                            <div className="flex items-center justify-between gap-4">
-                                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/[0.08] bg-[#050912] text-sm font-semibold tracking-[-0.02em] text-slate-500">
-                                    {member.slot}
-                                </span>
-                                <span className="text-sm font-semibold tracking-[-0.02em] text-slate-600">
-                                    Teammitglied
+                        <div
+                            className={`grid gap-3 ${
+                                member.align === "right"
+                                    ? "md:grid-cols-[minmax(0,1fr)_minmax(11rem,15rem)]"
+                                    : "md:grid-cols-[minmax(11rem,15rem)_minmax(0,1fr)]"
+                            }`}
+                        >
+                            <div
+                                className={`relative aspect-[16/10] overflow-hidden rounded-[1rem] border border-white/[0.075] bg-[#050912] md:aspect-auto md:min-h-[11.75rem] ${
+                                    member.align === "right" ? "md:order-2" : ""
+                                }`}
+                            >
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.032)_1px,transparent_1px)] bg-[size:18px_18px] opacity-60" />
+                                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(2,4,11,0.08)_0%,rgba(2,4,11,0.42)_100%)]" />
+                                <span className="absolute bottom-5 left-5 text-sm font-semibold tracking-[-0.02em] text-slate-500">
+                                    Bild folgt
                                 </span>
                             </div>
 
-                            <h3 className="mt-7 text-[1.7rem] font-semibold leading-[0.98] tracking-[-0.055em] text-white">
-                                {member.title}
-                            </h3>
-                            <p className="mt-4 max-w-sm text-[0.96rem] font-medium leading-6 tracking-[-0.02em] text-slate-500">
-                                {member.description}
-                            </p>
-                        </div>
+                            <div className="flex min-h-[11.75rem] flex-col justify-between px-2 pb-3 pt-4 sm:px-3 sm:py-4 md:px-4 lg:px-5">
+                                <div>
+                                    <p className="text-sm font-semibold tracking-[-0.02em] text-slate-500">
+                                        {member.role}
+                                    </p>
+                                    <h3 className="mt-3 text-[1.6rem] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-[1.8rem]">
+                                        {member.title}
+                                    </h3>
+                                    <p className="mt-3 max-w-xl text-[0.96rem] font-medium leading-6 tracking-[-0.02em] text-slate-500">
+                                        {member.description}
+                                    </p>
+                                </div>
 
-                        <p className="mt-8 border-t border-white/[0.07] pt-4 text-sm font-medium text-slate-600">
-                            Infos folgen
-                        </p>
+                                <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                                    <span className="text-sm font-medium text-slate-600">Infos folgen</span>
+                                    <span className="text-sm font-semibold text-slate-600">Profil folgt</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
                 ))}
             </div>
