@@ -17,7 +17,7 @@ export const siteConfig = {
 export const mainNavItems = [
     { label: "Startseite", href: "/" },
     { label: "Sicherheit", href: "/sicherheit" },
-    { label: "Blog", href: "/blog" },
+    { label: "Einblicke", href: "/einblicke" },
     { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
@@ -38,16 +38,6 @@ export const placeholderPages = {
             "Wie JobBridge Jugendliche, Eltern und Auftraggeber schützt: klare Rollen, geprüfte Kontakte und ein Ablauf, der nicht auf Zufall gebaut ist.",
         metaDescription:
             "Sicherheit bei JobBridge: klare Rollen, geprüfte Kontakte, Jugendschutz und transparente Freigaben für sichere Taschengeldjobs.",
-    },
-    blog: {
-        path: "/blog",
-        navLabel: "Blog",
-        eyebrow: "Blog",
-        title: "Einblicke",
-        description:
-            "Gedanken, Fortschritte und Beiträge rund um sichere Taschengeldjobs, lokale Unterstützung und den Aufbau von JobBridge.",
-        metaDescription:
-            "Aktuelle Einblicke, Nachrichten und Beiträge zu JobBridge, sicheren Taschengeldjobs und lokaler Unterstützung.",
     },
     kontakt: {
         path: "/kontakt",

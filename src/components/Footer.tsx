@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Leaf } from "lucide-react";
 import { FooterChat } from "./FooterChat";
 
-export function Footer() {
+export function Footer({ showChat = true }: { showChat?: boolean }) {
     return (
         <>
-            <FooterChat />
+            {showChat ? <FooterChat /> : null}
 
             <footer className="relative z-10 border-t border-white/10 bg-black">
                 <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 pb-12 pt-8">
@@ -23,6 +23,9 @@ export function Footer() {
                             >
                                 Zur Plattform
                             </a>
+                            <Link href="/einblicke" className="transition-colors hover:text-white">
+                                Einblicke
+                            </Link>
                             <Link href="/impressum" className="transition-colors hover:text-white">
                                 Impressum
                             </Link>

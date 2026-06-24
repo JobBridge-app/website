@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
-import { LegalBackButton, LegalPageNavigation, LegalScrollReset, LegalSectionFrame } from "./LegalInteractions";
+import { SiteHeader } from "@/components/SiteHeader";
+import { LegalPageNavigation, LegalScrollReset, LegalSectionFrame } from "./LegalInteractions";
 
 export const PLATFORM_IMPRINT_URL = "https://app.jobbridge.app/legal/impressum";
 export const PLATFORM_PRIVACY_URL = "https://app.jobbridge.app/legal/datenschutz";
@@ -36,22 +36,7 @@ export function LegalPage({
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#02040b] to-transparent" />
 
             <div className="relative mx-auto w-full max-w-7xl px-4 py-8 md:px-6 md:py-12 xl:px-8">
-                <div className="flex items-center justify-between gap-6">
-                    <LegalBackButton />
-                    <div className="hidden items-center gap-3 text-sm text-slate-300 sm:flex">
-                        <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#050f1d]/88 shadow-[0_10px_35px_rgba(2,6,23,0.35)]">
-                            <Image
-                                src="/favicon.ico"
-                                alt=""
-                                width={28}
-                                height={28}
-                                unoptimized
-                                className="h-7 w-7 scale-[1.25] object-cover"
-                            />
-                        </span>
-                        <span>JobBridge</span>
-                    </div>
-                </div>
+                <SiteHeader />
 
                 <header className="mt-12 md:mt-16">
                     <div className="grid gap-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">

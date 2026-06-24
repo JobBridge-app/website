@@ -231,7 +231,7 @@ export default function ImpressumPage() {
                                     term: "Diensteanbieter",
                                     description: (
                                         <>
-                                            Rezan Aaron Yalçin
+                                            Rezan Aaron Yalcin
                                             <br />
                                             JobBridge
                                         </>
@@ -278,7 +278,7 @@ export default function ImpressumPage() {
                             items={[
                                 {
                                     term: "Name",
-                                    description: "Rezan Aaron Yalçin",
+                                    description: "Rezan Aaron Yalcin",
                                 },
                                 {
                                     term: "Anschrift",

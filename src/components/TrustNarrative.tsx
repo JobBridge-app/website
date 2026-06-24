@@ -38,7 +38,7 @@ function JobBridgeMark() {
     );
 }
 
-function DotField() {
+export function PixelShaderBackdrop({ className = "" }: { className?: string }) {
     const hostRef = useRef<HTMLDivElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const targetPointerRef = useRef<PointerState>({ x: -1000, y: -1000, active: false });
@@ -242,7 +242,11 @@ function DotField() {
     }, [reducedMotion]);
 
     return (
-        <div ref={hostRef} aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+            ref={hostRef}
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+        >
             <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-100" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_35%,rgba(37,99,235,0.1),transparent_42%),linear-gradient(90deg,rgba(2,4,11,0.2)_0%,rgba(2,4,11,0.02)_48%,rgba(2,4,11,0.24)_100%)]" />
         </div>
@@ -435,7 +439,7 @@ export function TrustNarrative() {
             aria-label="JobBridge Ablauf und Plattformprinzip"
             className="relative isolate min-h-[94svh] overflow-hidden bg-[#02040b] text-white"
         >
-            <DotField />
+            <PixelShaderBackdrop />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#02040b] to-transparent" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-neutral-950 to-transparent" />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,11,0.08)_0%,rgba(2,4,11,0)_40%,rgba(2,4,11,0.22)_100%)]" />

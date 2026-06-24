@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { insightsPage, ownInsights } from "@/content/insights";
+import { teamMembers } from "@/content/team";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = siteConfig.url;
     const lastModified = new Date("2026-06-23");
 
-    return [
+    const staticRoutes = [
         {
             url: baseUrl,
             lastModified,
@@ -37,10 +39,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.1,
         },
         {
-            url: `${baseUrl}/blog`,
+            url: `${baseUrl}${insightsPage.path}`,
             lastModified,
             changeFrequency: "weekly",
-            priority: 0.45,
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}${insightsPage.path}/alle`,
+            lastModified,
+            changeFrequency: "weekly",
+            priority: 0.58,
         },
         {
             url: `${baseUrl}/kontakt`,
@@ -48,5 +56,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "monthly",
             priority: 0.4,
         },
-    ];
+    ] satisfies MetadataRoute.Sitemap;
+
+    const articleRoutes = ownInsights.map((article) => ({
+        url: `${baseUrl}${insightsPage.path}/${article.slug}`,
+        lastModified: new Date(article.updatedAt),
+        changeFrequency: "monthly" as const,
+        priority: article.featured ? 0.72 : 0.55,
+    }));
+
+    const teamRoutes = teamMembers.map((member) => ({
+        url: `${baseUrl}${member.profilePath}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.45,
+    }));
+
+    return [...staticRoutes, ...articleRoutes, ...teamRoutes];
 }

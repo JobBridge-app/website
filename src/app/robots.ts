@@ -1,14 +1,15 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+import { siteConfig } from "@/config/site";
 
 export default function robots(): MetadataRoute.Robots {
     return {
         rules: [
             {
-                userAgent: '*',
-                allow: '/',
-                disallow: ['/api/', '/_next/'],
+                userAgent: "*",
+                allow: "/",
+                disallow: ["/api/", "/_next/"],
             },
         ],
-        sitemap: 'https://jobbridge.app/sitemap.xml',
-    }
+        sitemap: [`${siteConfig.url}/sitemap.xml`, `${siteConfig.url}/news-sitemap.xml`],
+    };
 }

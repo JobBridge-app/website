@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { mainNavItems, menuMetaLinks } from "@/config/site";
@@ -89,8 +90,11 @@ function MenuOverlay({
     useEffect(() => {
         if (!open) return;
 
-        const previousOverflow = document.body.style.overflow;
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+
         document.body.style.overflow = "hidden";
+        document.documentElement.style.overflow = "hidden";
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
@@ -101,20 +105,25 @@ function MenuOverlay({
         window.addEventListener("keydown", handleKeyDown);
 
         return () => {
-            document.body.style.overflow = previousOverflow;
+            document.body.style.overflow = previousBodyOverflow;
+            document.documentElement.style.overflow = previousHtmlOverflow;
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [onClose, open]);
 
-    return (
+    if (typeof document === "undefined") {
+        return null;
+    }
+
+    return createPortal(
         <AnimatePresence>
             {open ? (
                 <motion.div
-                    className="fixed inset-0 z-[120] overflow-hidden bg-[#050505] text-white"
-                    initial={reducedMotion ? false : { y: "-100%" }}
-                    animate={{ y: 0 }}
-                    exit={reducedMotion ? { opacity: 0 } : { y: "-100%" }}
-                    transition={{ duration: 0.72, ease: EASE }}
+                    className="fixed inset-0 z-[999] h-[100dvh] min-h-[100svh] overflow-y-auto overscroll-contain bg-[#050505] text-white"
+                    initial={reducedMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: reducedMotion ? 0 : 0.32, ease: EASE }}
                     role="dialog"
                     aria-modal="true"
                     aria-label="Navigation"
@@ -190,7 +199,8 @@ function MenuOverlay({
                     </div>
                 </motion.div>
             ) : null}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body,
     );
 }
 
@@ -205,7 +215,7 @@ export function SiteMenuButton({ className = "" }: { className?: string }) {
                 type="button"
                 onClick={() => setOpen(true)}
                 aria-label="Menü öffnen"
-                className={`group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] text-white shadow-[0_16px_44px_rgba(2,6,23,0.22)] backdrop-blur transition hover:border-blue-200/25 hover:bg-blue-400/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${className}`}
+                className={`group flex h-11 w-11 items-center justify-center rounded-[1.15rem] border border-white/10 bg-white/[0.045] text-white shadow-[0_12px_36px_rgba(2,6,23,0.2)] backdrop-blur transition hover:border-blue-200/25 hover:bg-blue-400/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${className}`}
             >
                 <motion.span
                     className="flex"

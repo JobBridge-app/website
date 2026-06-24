@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { SiteMenuButton } from "@/components/SiteMenu";
+import { SiteHeader } from "@/components/SiteHeader";
 
 type PlaceholderPageProps = {
     eyebrow: string;
@@ -13,16 +12,7 @@ export function PlaceholderPage({ eyebrow, title, description }: PlaceholderPage
         <main className="min-h-screen bg-[#02040b] text-white selection:bg-blue-400/30 selection:text-blue-100">
             <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.14),transparent_32%),linear-gradient(180deg,#02040b_0%,#050505_100%)]" />
             <div className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-6 sm:px-10 sm:py-10">
-                <header className="flex items-center justify-between">
-                    <Link
-                        href="/"
-                        aria-label="JobBridge Startseite"
-                        className="text-[1.04rem] font-semibold tracking-[-0.01em] text-white outline-none transition hover:text-blue-100 focus-visible:ring-2 focus-visible:ring-white/70"
-                    >
-                        JobBridge
-                    </Link>
-                    <SiteMenuButton />
-                </header>
+                <SiteHeader />
 
                 <section className="flex flex-1 flex-col justify-center py-20 sm:py-24">
                     <p className="mb-5 text-sm font-medium uppercase tracking-[0.2em] text-blue-200/60">

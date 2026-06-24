@@ -277,7 +277,7 @@ export default function DatenschutzPage() {
 
                     <LegalRow eyebrow="02" title="Verantwortlicher">
                         <p>
-                            Verantwortlich für diese Landingpage ist Rezan Aaron Yalçin, JobBridge, Am Neuen Wasserwerk
+                            Verantwortlich für diese Landingpage ist Rezan Aaron Yalcin, JobBridge, Am Neuen Wasserwerk
                             3, 53359 Rheinbach, Deutschland.
                         </p>
                         <DefinitionRows
