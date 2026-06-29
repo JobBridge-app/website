@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seo:verify": "node scripts/verify-seo.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InsightsIndexPage } from "@/components/insights/InsightsIndexPage";
-import { allInsights, insightsPage } from "@/content/insights";
+import { allInsights, getInsightAbsoluteUrl, insightsPage } from "@/content/insights";
 import { siteConfig } from "@/config/site";
 import { serializeJsonLd } from "@/lib/json-ld";
 
@@ -42,8 +42,9 @@ const collectionJsonLd = {
     hasPart: allInsights.map((insight) => ({
         "@type": insight.kind === "own" ? "BlogPosting" : "CreativeWork",
         name: insight.title,
-        url: insight.kind === "own" ? `${siteConfig.url}${insightsPage.path}/${insight.slug}` : insight.externalUrl,
+        url: getInsightAbsoluteUrl(insight),
         datePublished: insight.publishedAt,
+        sameAs: insight.kind === "external" ? insight.externalUrl : undefined,
     })),
 };
 

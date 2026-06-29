@@ -1,7 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ExternalInsightPage } from "@/components/insights/ExternalInsightPage";
 import { InsightArticlePage } from "@/components/insights/InsightArticlePage";
-import { getOwnInsight, insightsPage, ownInsights } from "@/content/insights";
+import {
+    allInsights,
+    getInsightAbsoluteUrl,
+    getInsightBySlug,
+    getInsightCanonicalPath,
+    getInsightSlug,
+    getInsightSourceUrl,
+    insightsPage,
+    type ExternalInsight,
+    type OwnInsight,
+} from "@/content/insights";
 import { getTeamMember } from "@/content/team";
 import { siteConfig } from "@/config/site";
 import { serializeJsonLd } from "@/lib/json-ld";
@@ -12,20 +23,15 @@ type InsightArticleRouteProps = {
     }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-    return ownInsights.map((article) => ({ slug: article.slug }));
+    return allInsights.map((insight) => ({ slug: getInsightSlug(insight) }));
 }
 
-export async function generateMetadata({ params }: InsightArticleRouteProps): Promise<Metadata> {
-    const { slug } = await params;
-    const article = getOwnInsight(slug);
-
-    if (!article) {
-        return {};
-    }
-
+function getOwnInsightMetadata(article: OwnInsight): Metadata {
     const author = getTeamMember(article.authorSlug);
-    const path = `${insightsPage.path}/${article.slug}`;
+    const path = getInsightCanonicalPath(article);
     const imageUrl = article.image?.src ?? "/og-image.png";
 
     return {
@@ -60,14 +66,107 @@ export async function generateMetadata({ params }: InsightArticleRouteProps): Pr
     };
 }
 
+function getExternalInsightMetadata(insight: ExternalInsight): Metadata {
+    const path = getInsightCanonicalPath(insight);
+    const imageUrl = insight.image?.src ?? "/og-image.png";
+
+    return {
+        title: insight.title,
+        description: insight.excerpt,
+        alternates: {
+            canonical: path,
+        },
+        openGraph: {
+            title: `${insight.title} | ${siteConfig.name}`,
+            description: insight.excerpt,
+            url: path,
+            type: "article",
+            publishedTime: insight.publishedAt,
+            authors: insight.authorName ? [insight.authorName] : [insight.sourceName],
+            tags: insight.tags,
+            images: [{ url: imageUrl, width: 1200, height: 630, alt: insight.image?.alt ?? insight.title }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${insight.title} | ${siteConfig.name}`,
+            description: insight.excerpt,
+            images: [imageUrl],
+        },
+    };
+}
+
+export async function generateMetadata({ params }: InsightArticleRouteProps): Promise<Metadata> {
+    const { slug } = await params;
+    const insight = getInsightBySlug(slug);
+
+    if (!insight) {
+        return {};
+    }
+
+    return insight.kind === "own" ? getOwnInsightMetadata(insight) : getExternalInsightMetadata(insight);
+}
+
 export default async function InsightArticleRoute({ params }: InsightArticleRouteProps) {
     const { slug } = await params;
-    const article = getOwnInsight(slug);
+    const insight = getInsightBySlug(slug);
 
-    if (!article) {
+    if (!insight) {
         notFound();
     }
 
+    if (insight.kind === "external") {
+        const insightUrl = getInsightAbsoluteUrl(insight);
+        const imageUrl = insight.image?.src ? `${siteConfig.url}${insight.image.src}` : `${siteConfig.url}/og-image.png`;
+        const externalJsonLd = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${insightUrl}#webpage`,
+            url: insightUrl,
+            name: `${insight.title} | ${siteConfig.name}`,
+            description: insight.excerpt,
+            inLanguage: "de-DE",
+            isPartOf: {
+                "@id": `${siteConfig.url}/#website`,
+            },
+            about: {
+                "@type": "CreativeWork",
+                name: insight.title,
+                url: getInsightSourceUrl(insight),
+                sameAs: insight.externalUrl,
+                datePublished: insight.publishedAt,
+                publisher: {
+                    "@type": "Organization",
+                    name: insight.sourceName,
+                    url: insight.sourceUrl,
+                },
+                ...(insight.authorName
+                    ? {
+                          author: {
+                              "@type": "Person",
+                              name: insight.authorName,
+                          },
+                      }
+                    : {}),
+            },
+            publisher: {
+                "@id": `${siteConfig.url}/#organization`,
+            },
+            image: [imageUrl],
+            keywords: insight.tags.join(", "),
+        };
+
+        return (
+            <>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: serializeJsonLd(externalJsonLd) }}
+                />
+                <ExternalInsightPage insight={insight} />
+            </>
+        );
+    }
+
+    const article = insight;
     const author = getTeamMember(article.authorSlug);
     const articleUrl = `${siteConfig.url}${insightsPage.path}/${article.slug}`;
     const articleImageUrl = article.image?.src ? `${siteConfig.url}${article.image.src}` : `${siteConfig.url}/og-image.png`;

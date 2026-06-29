@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { PixelShaderBackdrop } from "@/components/TrustNarrative";
 import { siteConfig } from "@/config/site";
 import { getTeamMember, type TeamMember } from "@/content/team";
-import { externalInsights, formatInsightDate, getInsightUrl, ownInsights, type Insight } from "@/content/insights";
+import { externalInsights, formatInsightDate, getInsightAbsoluteUrl, getInsightUrl, ownInsights, type Insight } from "@/content/insights";
 import { serializeJsonLd } from "@/lib/json-ld";
 
 const member = getTeamMember("rezan");
@@ -30,11 +30,11 @@ function getProfileInsightKey(insight: Insight) {
 }
 
 function getProfileInsightHref(insight: Insight) {
-    return insight.kind === "own" ? getInsightUrl(insight) : insight.externalUrl;
+    return getInsightUrl(insight);
 }
 
 function getProfileInsightAbsoluteUrl(insight: Insight) {
-    return insight.kind === "own" ? `${siteConfig.url}${getInsightUrl(insight)}` : insight.externalUrl;
+    return getInsightAbsoluteUrl(insight);
 }
 
 function getProfileInsightSource(insight: Insight) {
@@ -172,7 +172,7 @@ export default function RezanYalcinProfilePage() {
                                     className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                                 >
                                     <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                                    Team
+                                    Einblicke
                                 </Link>
 
                                 <div className="mt-9 max-w-3xl">
@@ -287,12 +287,10 @@ export default function RezanYalcinProfilePage() {
                                 const source = getProfileInsightSource(insight);
 
                                 return (
-                                    <a
+                                    <Link
                                         key={getProfileInsightKey(insight)}
                                         href={href}
                                         className="group flex min-h-full flex-col overflow-hidden rounded-[1.15rem] bg-white/[0.035] outline-none ring-1 ring-white/[0.075] transition duration-300 hover:bg-white/[0.055] hover:ring-white/[0.13] focus-visible:ring-2 focus-visible:ring-white/70"
-                                        target="_blank"
-                                        rel="noreferrer"
                                     >
                                         <span className="relative block aspect-[16/10] overflow-hidden bg-[#050912]">
                                             {insight.image ? (
@@ -321,14 +319,14 @@ export default function RezanYalcinProfilePage() {
                                                 {insight.excerpt}
                                             </span>
                                             <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-blue-100/82 transition group-hover:text-white">
-                                                Quelle öffnen
+                                                Eintrag öffnen
                                                 <ArrowUpRight
                                                     className="h-4 w-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                                     aria-hidden="true"
                                                 />
                                             </span>
                                         </span>
-                                    </a>
+                                    </Link>
                                 );
                             })}
                         </div>

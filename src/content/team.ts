@@ -129,6 +129,14 @@ export const teamMembers = [
 
 export type TeamMemberSlug = (typeof teamMembers)[number]["slug"];
 
-export function getTeamMember(slug: string) {
+export function getTeamMember(slug: string): TeamMember | undefined {
     return teamMembers.find((member) => member.slug === slug);
+}
+
+export function getTeamProfileSlug(member: Pick<TeamMember, "profilePath">): string {
+    return member.profilePath.replace(/^\/team\//, "");
+}
+
+export function getTeamMemberByProfileSlug(profileSlug: string): TeamMember | undefined {
+    return teamMembers.find((member) => getTeamProfileSlug(member) === profileSlug);
 }

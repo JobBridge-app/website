@@ -29,6 +29,16 @@ export const menuMetaLinks = [
 ] as const;
 
 export const placeholderPages = {
+    plattform: {
+        path: "/plattform",
+        navLabel: "Plattform",
+        eyebrow: "Plattform",
+        title: "Die digitale Taschengeldbörse",
+        description:
+            "JobBridge bringt Jugendliche, Eltern und Auftraggeber in einem klaren digitalen Ablauf zusammen: lokale Aufgaben, nachvollziehbare Freigaben und transparente Kommunikation.",
+        metaDescription:
+            "Die JobBridge-Plattform für sichere Taschengeldjobs: lokale Aufgaben, Verifizierung, Elternfreigaben und klare Rollen für Jugendliche, Eltern und Auftraggeber.",
+    },
     sicherheit: {
         path: "/sicherheit",
         navLabel: "Sicherheit",

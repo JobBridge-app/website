@@ -1,4 +1,4 @@
-import { allInsights, getInsightUrl, insightsPage } from "@/content/insights";
+import { allInsights, getInsightAbsoluteUrl, getInsightSourceUrl, insightsPage } from "@/content/insights";
 import { siteConfig } from "@/config/site";
 
 function escapeXml(value: string) {
@@ -13,15 +13,17 @@ function escapeXml(value: string) {
 export function GET() {
     const items = allInsights
         .map((insight) => {
-            const href = insight.kind === "own" ? `${siteConfig.url}${getInsightUrl(insight)}` : getInsightUrl(insight);
-            const guid = insight.kind === "own" ? `${siteConfig.url}${getInsightUrl(insight)}` : insight.externalUrl;
+            const href = getInsightAbsoluteUrl(insight);
+            const guid = getInsightAbsoluteUrl(insight);
+            const sourceLine =
+                insight.kind === "external" ? ` Originalquelle: ${getInsightSourceUrl(insight)}` : "";
 
             return `<item>
   <title>${escapeXml(insight.title)}</title>
   <link>${escapeXml(href)}</link>
   <guid>${escapeXml(guid)}</guid>
   <pubDate>${new Date(insight.publishedAt).toUTCString()}</pubDate>
-  <description>${escapeXml(insight.excerpt)}</description>
+  <description>${escapeXml(`${insight.excerpt}${sourceLine}`)}</description>
 </item>`;
         })
         .join("");

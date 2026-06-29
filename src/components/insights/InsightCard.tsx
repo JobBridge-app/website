@@ -33,22 +33,11 @@ function InsightVisual({ insight }: { insight: Insight }) {
 export function InsightCard({ insight }: InsightCardProps) {
     const href = getInsightUrl(insight);
     const author = insight.kind === "own" ? getTeamMember(insight.authorSlug) : undefined;
-    const isExternal = insight.kind === "external";
-    const Wrapper = isExternal ? "a" : Link;
-    const wrapperProps = isExternal
-        ? {
-              href,
-              target: "_blank",
-              rel: "noopener noreferrer",
-          }
-        : {
-              href,
-          };
 
     return (
         <article className="group relative overflow-hidden rounded-[1.22rem] border border-white/10 bg-[#070a10] p-3 shadow-[0_24px_72px_rgba(0,0,0,0.2)] transition duration-500 hover:border-white/18 hover:bg-[#090d15]">
-            <Wrapper
-                {...wrapperProps}
+            <Link
+                href={href}
                 className="relative flex h-full flex-col outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
                 <InsightVisual insight={insight} />
@@ -77,7 +66,7 @@ export function InsightCard({ insight }: InsightCardProps) {
                         {insight.excerpt}
                     </p>
                 </div>
-            </Wrapper>
+            </Link>
         </article>
     );
 }

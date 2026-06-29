@@ -313,12 +313,40 @@ export const allInsights = [...ownInsights, ...externalInsights].toSorted((a, b)
     b.publishedAt.localeCompare(a.publishedAt),
 );
 
-export function getOwnInsight(slug: string) {
+export function getInsightSlug(insight: Insight): string {
+    return insight.kind === "own" ? insight.slug : insight.id;
+}
+
+export function getInsightPath(insight: Insight): string {
+    return `${insightsPage.path}/${getInsightSlug(insight)}`;
+}
+
+export function getInsightAbsoluteUrl(insight: Insight): string {
+    return `${siteConfig.url}${getInsightPath(insight)}`;
+}
+
+export function getInsightCanonicalPath(insight: Insight): string {
+    return getInsightPath(insight);
+}
+
+export function getInsightSourceUrl(insight: Insight): string {
+    return insight.kind === "external" ? insight.externalUrl : getInsightAbsoluteUrl(insight);
+}
+
+export function getInsightLastModified(insight: Insight): string {
+    return insight.kind === "own" ? insight.updatedAt : insight.publishedAt;
+}
+
+export function getOwnInsight(slug: string): OwnInsight | undefined {
     return ownInsights.find((insight) => insight.slug === slug);
 }
 
-export function getInsightUrl(insight: Insight) {
-    return insight.kind === "own" ? `${insightsPage.path}/${insight.slug}` : insight.externalUrl;
+export function getInsightBySlug(slug: string): Insight | undefined {
+    return allInsights.find((insight) => getInsightSlug(insight) === slug);
+}
+
+export function getInsightUrl(insight: Insight): string {
+    return getInsightPath(insight);
 }
 
 export function getInsightAuthorName(insight: Insight) {

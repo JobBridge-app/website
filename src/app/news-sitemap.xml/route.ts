@@ -1,4 +1,4 @@
-import { insightsPage, ownInsights } from "@/content/insights";
+import { getInsightPath, ownInsights } from "@/content/insights";
 import { siteConfig } from "@/config/site";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +22,7 @@ export function GET() {
     const urls = articles
         .map(
             (article) => `<url>
-  <loc>${escapeXml(`${siteConfig.url}${insightsPage.path}/${article.slug}`)}</loc>
+  <loc>${escapeXml(`${siteConfig.url}${getInsightPath(article)}`)}</loc>
   <news:news>
     <news:publication>
       <news:name>${escapeXml(siteConfig.name)}</news:name>
