@@ -994,7 +994,7 @@ function Hero() {
         <section
             ref={heroRef}
             aria-label="JobBridge Hero"
-            className="relative min-h-[calc(100svh-2rem)] w-full max-w-[1760px] overflow-hidden rounded-[32px] border border-white/10 bg-[#030712] text-white shadow-[0_40px_140px_rgba(2,6,23,0.55)] lg:h-[calc(100vh-2rem)] lg:min-h-[760px]"
+            className="relative min-h-[calc(100svh-1rem)] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#030712] text-white shadow-[0_40px_140px_rgba(2,6,23,0.55)] sm:min-h-[calc(100svh-1.5rem)] sm:rounded-[28px] lg:min-h-[calc(100svh-2rem)] lg:rounded-[32px]"
             style={{
                 backgroundImage: showCanvas ? undefined : MOBILE_NOISE_URL,
                 backgroundColor: "#030712",
@@ -1013,10 +1013,10 @@ function Hero() {
                 onClose={() => setMenuOpen(false)}
             />
 
-            <div className="relative z-10 grid min-h-[calc(100svh-2rem)] grid-cols-12 grid-rows-[auto_minmax(0,1fr)] gap-0 px-6 pb-5 pt-6 sm:pb-8 md:px-8 md:pb-10 md:pt-8 lg:h-full lg:min-h-0 lg:grid-rows-none lg:gap-0 xl:px-10">
+            <div className="relative z-10 mx-auto grid min-h-[calc(100svh-1rem)] w-full max-w-[1760px] grid-cols-12 grid-rows-[auto_minmax(0,1fr)] gap-0 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))] sm:min-h-[calc(100svh-1.5rem)] sm:px-7 sm:pb-8 sm:pt-6 md:px-10 md:pb-10 md:pt-8 lg:min-h-[calc(100svh-2rem)] lg:grid-rows-none lg:gap-0 xl:px-12 2xl:px-16">
                 <motion.div
                     className="col-span-12 flex h-16 items-center justify-between"
-                    initial={reducedMotion ? false : { opacity: 0, y: -12 }}
+                    initial={false}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.72, delay: 0.04, ease: EASE }}
                 >
@@ -1067,21 +1067,21 @@ function Hero() {
 
                 <motion.div
                     style={{ y: contentY, opacity: contentOpacity }}
-                    className="col-span-12 row-start-2 flex min-h-0 flex-col justify-between pb-[max(1rem,env(safe-area-inset-bottom))] pt-[clamp(2.25rem,7svh,4.5rem)] sm:pt-12 lg:row-auto lg:col-span-7 lg:justify-center lg:pb-6 lg:pr-10 lg:pt-0 xl:pr-14"
+                    className="col-span-12 row-start-2 flex min-h-0 flex-col justify-between pb-4 pt-[clamp(2rem,7svh,4.5rem)] sm:pt-12 lg:row-auto lg:col-span-7 lg:justify-center lg:pb-6 lg:pr-10 lg:pt-0 xl:pr-14"
                 >
                     <motion.div
                         className="max-w-[760px]"
-                        initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+                        initial={false}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.12, ease: EASE }}
                     >
                         <motion.h1
                             aria-label={`${HEADLINE_PRIMARY_LINE} ${HEADLINE_TYPED_LINE}`}
-                            className="text-balance text-[clamp(3.6rem,9vw,8.4rem)] font-normal leading-[0.97] tracking-[-0.045em] text-white drop-shadow-[0_14px_40px_rgba(96,165,250,0.08)]"
+                            className="text-balance text-[clamp(2.85rem,9vw,8.4rem)] font-normal leading-[0.97] tracking-[-0.04em] text-white drop-shadow-[0_14px_40px_rgba(96,165,250,0.08)] sm:text-[clamp(3.35rem,9vw,8.4rem)]"
                             style={{
                                 fontFamily: "var(--font-serif), ui-serif, Georgia, serif",
                             }}
-                            initial={reducedMotion ? false : { opacity: 0, y: 60, filter: "blur(18px)" }}
+                            initial={false}
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                             transition={{
                                 duration: 1,
@@ -1095,7 +1095,7 @@ function Hero() {
                                         {wordIndex > 0 ? " " : null}
                                         <motion.span
                                             className="inline-block will-change-transform"
-                                            initial={reducedMotion ? false : { y: 30, opacity: 0, filter: "blur(10px)" }}
+                                            initial={false}
                                             animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                                             transition={{
                                                 duration: 0.78,
@@ -1122,7 +1122,7 @@ function Hero() {
                                         <motion.span
                                             key={`${character}-${index}`}
                                             className="inline-block whitespace-pre bg-[linear-gradient(90deg,#ffffff_0%,#dbeafe_54%,#79adff_100%)] bg-clip-text text-transparent will-change-transform"
-                                            initial={reducedMotion ? false : { opacity: 0, y: 10, filter: "blur(10px)" }}
+                                            initial={false}
                                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                             transition={{
                                                 duration: 0.3,
@@ -1166,7 +1166,7 @@ function Hero() {
 
                         <motion.p
                             className="mt-8 max-w-[39rem] text-lg leading-relaxed text-slate-300 md:text-xl"
-                            initial={reducedMotion ? false : { opacity: 0, y: 26 }}
+                            initial={false}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.82, delay: 1.44, ease: EASE }}
                         >
@@ -1177,7 +1177,7 @@ function Hero() {
                     <motion.div
                         data-hero-ctas
                         className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center lg:mt-9"
-                        initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+                        initial={false}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.82, delay: 1.58, ease: EASE }}
                     >
