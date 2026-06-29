@@ -125,6 +125,67 @@ export const teamMembers = [
             "https://www.jugend-forscht.de/index.php?id=262&tx_smsjufoprojects_smsjufprojectdb%5Bproject%5D=7820&tx_smsjufoprojects_smsjufprojectdb%5Baction%5D=show&tx_smsjufoprojects_smsjufprojectdb%5Bcontroller%5D=Project&cHash=e139c32f72277b9b127908cdb4f044db",
         ],
     },
+    {
+        slug: "tim-lohmeier",
+        name: "Tim Lohmeier",
+        displayName: "Tim Lohmeier",
+        shortName: "Tim",
+        role: "Produktentwicklung JobBridge Edu",
+        description:
+            "Tim entwickelt im JobBridge Lab die Grundlagen für JobBridge Edu: eine Lernplattform, auf der Jugendliche bezahlbare Nachhilfe finden und eigenes Wissen fair weitergeben können.",
+        profileIntro:
+            "Viele Schüler brauchen Hilfe in Mathe, Englisch oder anderen Fächern, doch gute Nachhilfe ist oft teuer oder schwer zu organisieren. Gleichzeitig gibt es Jugendliche, die ein Fach stark beherrschen, anderen helfen möchten und sich dabei fair etwas dazuverdienen wollen. JobBridge Edu soll daraus einen klaren, lokalen Lernweg machen: verständliche Profile, passende Lernhilfe und ein Ablauf, der für Schüler, Eltern und Nachhilfegebende nachvollziehbar bleibt.",
+        location: "Rheinbach, Deutschland",
+        profilePath: "/team/tim-lohmeier",
+        focus: [
+            "Bedarf von Schülern und Eltern in Rheinbach verstehen",
+            "Nachhilfeprofile, Fachbereiche und Verfügbarkeiten klar strukturieren",
+            "Faire Regeln für Kontakt, Vertrauen und sichere Lernhilfe entwickeln",
+        ],
+        contactLinks: [
+            {
+                kind: "direct-email",
+                label: "Direkt",
+                value: "tim.lohmeier@jobbridge.team",
+                description: "Persönlicher Kontakt zu Tim.",
+                href: "mailto:tim.lohmeier@jobbridge.team",
+            },
+            {
+                kind: "team-email",
+                label: "JobBridge Lab",
+                value: "kontakt@jobbridge.team",
+                description: "Kontakt für Fragen zu JobBridge Edu und dem JobBridge Lab.",
+                href: "mailto:kontakt@jobbridge.team",
+            },
+        ],
+        profileLinks: [
+            {
+                label: "Projekt",
+                value: "JobBridge Edu",
+                description: "Ein neues Lernplattform-Projekt in der Anfangsphase.",
+            },
+            {
+                label: "Standort",
+                value: "JobBridge Rheinbach",
+                description: "Lokaler Ausgangspunkt für die Arbeit an JobBridge Edu.",
+            },
+            {
+                label: "Kontakt",
+                value: "tim.lohmeier@jobbridge.team",
+                description: "Direkter Kontakt zu Tim.",
+                href: "mailto:tim.lohmeier@jobbridge.team",
+            },
+        ],
+        knowsAbout: [
+            "JobBridge Edu",
+            "JobBridge Lab",
+            "Nachhilfe für Schüler",
+            "digitale Lernplattformen",
+            "Rheinbach",
+            "Taschengeldjobs durch Wissensvermittlung",
+        ],
+        sameAs: ["https://jobbridge.app/team/tim-lohmeier"],
+    },
 ] as const satisfies TeamMember[];
 
 export type TeamMemberSlug = (typeof teamMembers)[number]["slug"];

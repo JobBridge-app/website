@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PixelShaderBackdrop } from "@/components/TrustNarrative";
+import { ProfilePortraitPlaceholder } from "@/components/team/ProfilePortraitPlaceholder";
 import { siteConfig } from "@/config/site";
 import { getTeamMemberByProfileSlug, getTeamProfileSlug, teamMembers } from "@/content/team";
 import { serializeJsonLd } from "@/lib/json-ld";
@@ -16,7 +17,7 @@ type TeamProfileRouteProps = {
     }>;
 };
 
-const customTeamSlugs = new Set(["rezan", "resan-yalcin", "rezan-yalcin"]);
+const customTeamSlugs = new Set(["rezan", "resan-yalcin", "rezan-yalcin", "tim-lohmeier"]);
 
 export const dynamicParams = false;
 
@@ -152,9 +153,7 @@ export default async function TeamProfilePage({ params }: TeamProfileRouteProps)
                                             priority
                                         />
                                     ) : (
-                                        <span className="absolute inset-0 flex items-center justify-center bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.56))] text-5xl font-semibold tracking-[-0.06em] text-white/80">
-                                            {member.shortName.slice(0, 1)}
-                                        </span>
+                                        <ProfilePortraitPlaceholder />
                                     )}
                                 </div>
                             </aside>
