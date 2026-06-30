@@ -1077,7 +1077,7 @@ function Hero() {
                     >
                         <motion.h1
                             aria-label={`${HEADLINE_PRIMARY_LINE} ${HEADLINE_TYPED_LINE}`}
-                            className="text-balance text-[clamp(3.12rem,10.2vw,8.4rem)] font-normal leading-[1.035] tracking-[-0.04em] text-white drop-shadow-[0_14px_40px_rgba(96,165,250,0.08)] sm:text-[clamp(3.35rem,9vw,8.4rem)] sm:leading-[0.97]"
+                            className="overflow-visible text-balance text-[clamp(3.12rem,10.2vw,8.4rem)] font-normal leading-none tracking-[-0.04em] text-white drop-shadow-[0_14px_40px_rgba(96,165,250,0.08)] sm:text-[clamp(3.35rem,9vw,8.4rem)] sm:leading-[0.97]"
                             style={{
                                 fontFamily: "var(--font-serif), ui-serif, Georgia, serif",
                             }}
@@ -1089,7 +1089,11 @@ function Hero() {
                                 ease: EASE,
                             }}
                         >
-                            <span aria-hidden="true" className="block whitespace-nowrap pb-[0.14em] sm:pb-[0.05em]">
+                            <span aria-hidden="true" className="block whitespace-nowrap leading-[1.14] sm:hidden">
+                                {HEADLINE_PRIMARY_LINE}
+                            </span>
+
+                            <span aria-hidden="true" className="hidden whitespace-nowrap pb-[0.05em] sm:block">
                                 {HEADLINE_PRIMARY_LINE.split(" ").map((word, wordIndex) => (
                                     <Fragment key={`${word}-${wordIndex}`}>
                                         {wordIndex > 0 ? " " : null}
@@ -1109,7 +1113,7 @@ function Hero() {
                                 ))}
                             </span>
 
-                            <span aria-hidden="true" className="relative -mt-[0.06em] block min-h-[1.08em] whitespace-nowrap pb-[0.08em] sm:-mt-[0.12em] sm:min-h-[1.02em] sm:pb-[0.02em]">
+                            <span aria-hidden="true" className="relative -mt-[0.2em] block min-h-[1.1em] whitespace-nowrap pb-[0.06em] leading-[1.06] sm:-mt-[0.12em] sm:min-h-[1.02em] sm:pb-[0.02em] sm:leading-[inherit]">
                                 <span
                                     aria-hidden
                                     className="pointer-events-none select-none opacity-0"
